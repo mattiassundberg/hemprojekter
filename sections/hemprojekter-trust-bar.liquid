@@ -1,0 +1,66 @@
+<section class="hp-trust" id="shopify-section-{{ section.id }}">
+  <div class="hp-container hp-trust__inner">
+    {%- for block in section.blocks -%}
+      <div class="hp-trust__item" {{ block.shopify_attributes }}>
+        {%- if block.settings.icon != blank -%}
+          <span class="hp-trust__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+        {%- endif -%}
+        <span class="hp-trust__text">{{ block.settings.text }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .hp-trust {
+    background: var(--hp-bg);
+    border-bottom: 1px solid var(--hp-border);
+  }
+  .hp-trust__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(14px, 3vw, 36px);
+    padding-block: 18px;
+  }
+  .hp-trust__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--hp-font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--hp-text-muted);
+  }
+  .hp-trust__icon { color: var(--hp-aurora-1); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Trust bar",
+  "tag": "section",
+  "class": "hp-section hp-section--trust",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Punkt",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Ikon (emoji eller symbol)", "default": "★" },
+        { "type": "text", "id": "text", "label": "Text", "default": "4.8 av 5 — 124 omdömen" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust bar",
+      "blocks": [
+        { "type": "trust_item", "settings": { "icon": "★", "text": "4.8 / 5 — 124 omdömen" } },
+        { "type": "trust_item", "settings": { "icon": "✦", "text": "Fri frakt över 499 kr" } },
+        { "type": "trust_item", "settings": { "icon": "↺", "text": "30 dagars öppet köp" } },
+        { "type": "trust_item", "settings": { "icon": "⌖", "text": "Skickas från Sverige" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
