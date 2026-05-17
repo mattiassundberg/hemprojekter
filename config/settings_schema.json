@@ -2204,6 +2204,12 @@
         "label": "Reducera dekorativa animationer",
         "info": "Tvinga av animationer även om webbläsaren inte ber om det.",
         "default": false
+      },
+      {
+        "type": "product",
+        "id": "hp_sticky_product",
+        "label": "Produkt för sticky-knappen",
+        "info": "Den produkt som visas i den nedre köpknappen. Lämna tom för att använda första produkten i butiken."
       }
     ]
   }
