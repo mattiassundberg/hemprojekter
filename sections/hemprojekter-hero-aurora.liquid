@@ -1,5 +1,3 @@
-{{ 'hemprojekter-aurora.css' | asset_url | stylesheet_tag }}
-
 <section class="hp-hero" id="shopify-section-{{ section.id }}">
   <div class="hp-aurora-bloom" aria-hidden="true"></div>
 
@@ -52,7 +50,7 @@
   </a>
 </section>
 
-<div id="hp-after-hero" aria-hidden="true"></div>
+<div id="hp-after-hero" tabindex="-1"></div>
 
 {% stylesheet %}
   .hp-hero {

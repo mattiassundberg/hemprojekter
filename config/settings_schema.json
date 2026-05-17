@@ -2209,7 +2209,7 @@
         "type": "product",
         "id": "hp_sticky_product",
         "label": "Produkt för sticky-knappen",
-        "info": "Den produkt som visas i den nedre köpknappen. Lämna tom för att använda första produkten i butiken."
+        "info": "Den produkt som visas i den nedre köpknappen. Sticky-knappen visas inte om ingen produkt valts."
       }
     ]
   }

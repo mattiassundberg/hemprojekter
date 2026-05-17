@@ -1,7 +1,4 @@
 {%- assign product = all_products[settings.hp_sticky_product] -%}
-{%- unless product != blank -%}
-  {%- assign product = all_products.first -%}
-{%- endunless -%}
 
 {%- if product != blank -%}
   <div class="hp-sticky" data-hp-sticky aria-hidden="true" inert>

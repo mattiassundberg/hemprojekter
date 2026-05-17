@@ -1,14 +1,14 @@
 <section class="hp-trust" id="shopify-section-{{ section.id }}">
-  <div class="hp-container hp-trust__inner">
+  <ul class="hp-container hp-trust__inner" role="list">
     {%- for block in section.blocks -%}
-      <div class="hp-trust__item" {{ block.shopify_attributes }}>
+      <li class="hp-trust__item" {{ block.shopify_attributes }}>
         {%- if block.settings.icon != blank -%}
           <span class="hp-trust__icon" aria-hidden="true">{{ block.settings.icon }}</span>
         {%- endif -%}
         <span class="hp-trust__text">{{ block.settings.text }}</span>
-      </div>
+      </li>
     {%- endfor -%}
-  </div>
+  </ul>
 </section>
 
 {% stylesheet %}
@@ -17,6 +17,9 @@
     border-bottom: 1px solid var(--hp-border);
   }
   .hp-trust__inner {
+    list-style: none;
+    margin: 0;
+    padding-inline: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
