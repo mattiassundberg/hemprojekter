@@ -1,0 +1,95 @@
+<section class="hp-features">
+  <div class="hp-container">
+    <div class="hp-features__head">
+      <p class="hp-kicker">{{ section.settings.kicker }}</p>
+      {%- if section.settings.heading != blank -%}
+        <h2 class="hp-display hp-features__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <ul class="hp-features__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="hp-feature" {{ block.shopify_attributes }}>
+          <span class="hp-feature__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+          <h3 class="hp-feature__title">{{ block.settings.heading }}</h3>
+          <p class="hp-feature__body hp-body">{{ block.settings.text }}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% stylesheet %}
+  .hp-features { padding-block: var(--hp-section-pad-y); background: var(--hp-bg); }
+  .hp-features__head { text-align: center; display: grid; gap: 12px; margin-bottom: clamp(32px, 5vw, 64px); }
+  .hp-features__title { font-size: clamp(2rem, 4vw, 3.2rem); margin: 0; text-wrap: balance; }
+  .hp-features__grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .hp-feature {
+    padding: 32px 28px;
+    border-radius: var(--hp-radius);
+    border: 1px solid var(--hp-border);
+    background: linear-gradient(180deg, var(--hp-surface) 0%, rgba(17, 23, 58, 0.4) 100%);
+    display: grid;
+    gap: 12px;
+    transition: transform var(--hp-dur-med) var(--hp-ease), border-color var(--hp-dur-med) var(--hp-ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hp-feature { transition: none; }
+  }
+  .hp-feature:hover { transform: translateY(-4px); border-color: var(--hp-border-strong); }
+  .hp-feature__icon {
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--hp-aurora-2), var(--hp-aurora-3));
+    color: #0B1026;
+    border-radius: 12px;
+    font-family: var(--hp-font-display);
+    font-size: 1.2rem;
+  }
+  .hp-feature__title {
+    font-family: var(--hp-font-display);
+    font-weight: 400;
+    margin: 0;
+    font-size: 1.45rem;
+    color: var(--hp-text);
+  }
+  .hp-feature__body { margin: 0; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Features — Triptych",
+  "tag": "section",
+  "class": "hp-section hp-section--features",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Vad du får" },
+    { "type": "text", "id": "heading", "label": "Rubrik", "default": "Tre saker som gör skillnad." }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Ikon", "default": "✦" },
+        { "type": "text", "id": "heading", "label": "Rubrik", "default": "Stjärnprojektion" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Levande stjärnhimmel i hela rummet, justerbar intensitet och färg." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features — Triptych",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "✦", "heading": "Stjärnprojektion", "text": "Levande stjärnhimmel i hela rummet, justerbar intensitet och färg." } },
+        { "type": "feature", "settings": { "icon": "◐", "heading": "8h timer", "text": "Somna till magin — den stänger av sig själv när du sover." } },
+        { "type": "feature", "settings": { "icon": "♪", "heading": "Bluetooth-högtalare", "text": "Spela din lugna playlist direkt från enheten. Inga sladdar." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
