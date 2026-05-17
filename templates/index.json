@@ -1,113 +1,59 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
       "type": "hemprojekter-hero-aurora",
-      "settings": {}
+      "settings": {
+        "kicker": "Mini-projektor · 4K Ultra HD",
+        "heading": "<p>Din hemmabio. Direkt på <em>din vägg.</em></p>",
+        "subheading": "Streama från mobil, dator eller spelkonsol. Upp till 150 tum, skarp 4K-bild, inbyggda högtalare — på sekunder.",
+        "cta_label": "Köp nu — 499 kr",
+        "cta_url": "shopify://products/mini-projektor-720p",
+        "secondary_label": "Se demo",
+        "secondary_url": "#demo",
+        "klarna_line": "Eller 4 räntefria delbetalningar via Klarna."
+      }
     },
     "trust": {
       "type": "hemprojekter-trust-bar",
       "blocks": {
-        "t1": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "★",
-            "text": "4.8 / 5 — 124 omdömen"
-          }
-        },
-        "t2": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "✦",
-            "text": "Fri frakt över 499 kr"
-          }
-        },
-        "t3": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "↺",
-            "text": "30 dagars öppet köp"
-          }
-        },
-        "t4": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "⌖",
-            "text": "Skickas från Sverige"
-          }
-        }
+        "t1": { "type": "trust_item", "settings": { "icon": "★", "text": "4.8 / 5 — 124 omdömen" } },
+        "t2": { "type": "trust_item", "settings": { "icon": "✦", "text": "Fri frakt över 499 kr" } },
+        "t3": { "type": "trust_item", "settings": { "icon": "↺", "text": "30 dagars öppet köp" } },
+        "t4": { "type": "trust_item", "settings": { "icon": "⌖", "text": "Skickas från Sverige" } }
       },
-      "block_order": [
-        "t1",
-        "t2",
-        "t3",
-        "t4"
-      ],
+      "block_order": ["t1", "t2", "t3", "t4"],
       "settings": {}
     },
     "demo": {
       "type": "hemprojekter-demo-showcase",
       "settings": {
-        "kicker": "Se det själv",
-        "heading": "Innan. Efter. Som magi.",
-        "mode": "before_after",
-        "image_before": "shopify://shop_images/IMG_9061.jpg",
-        "image_after": "shopify://shop_images/IMG_9064_298b9991-44e6-42a9-be14-745a60679f80.jpg"
+        "kicker": "Före. Efter.",
+        "heading": "Tom vägg. På sekunder — hemmabio.",
+        "mode": "before_after"
       }
     },
     "features": {
       "type": "hemprojekter-feature-triptych",
       "blocks": {
-        "f1": {
-          "type": "feature",
-          "settings": {
-            "icon": "✦",
-            "heading": "Stjärnprojektion",
-            "text": "Levande stjärnhimmel i hela rummet, justerbar intensitet och färg."
-          }
-        },
-        "f2": {
-          "type": "feature",
-          "settings": {
-            "icon": "◐",
-            "heading": "8h timer",
-            "text": "Somna till magin — den stänger av sig själv när du sover."
-          }
-        },
-        "f3": {
-          "type": "feature",
-          "settings": {
-            "icon": "♪",
-            "heading": "Bluetooth-högtalare",
-            "text": "Spela din lugna playlist direkt från enheten. Inga sladdar."
-          }
-        }
+        "f1": { "type": "feature", "settings": { "icon": "◱", "heading": "Upp till 150\"", "text": "Stor bild direkt på vägg — som en riktig biosalong i vardagsrummet." } },
+        "f2": { "type": "feature", "settings": { "icon": "4K", "heading": "4K Ultra HD", "text": "Skarpa, klara bilder i varje scen — varje detalj på sin plats." } },
+        "f3": { "type": "feature", "settings": { "icon": "☀", "heading": "Hög ljusstyrka", "text": "Funkar även i ljusare rum, inte bara i totalt mörker." } },
+        "f4": { "type": "feature", "settings": { "icon": "♪", "heading": "Inbyggda högtalare", "text": "Tydligt ljud utan externa högtalare. Anslut Bluetooth när du vill ha mer." } },
+        "f5": { "type": "feature", "settings": { "icon": "⇆", "heading": "WiFi · BT · HDMI · USB", "text": "Streama trådlöst från mobil, dator, spelkonsol eller TV-box." } },
+        "f6": { "type": "feature", "settings": { "icon": "▶", "heading": "Bio · sport · spel · serier", "text": "Allt som finns på din skärm — bara större. Direkt på din vägg." } }
       },
-      "block_order": [
-        "f1",
-        "f2",
-        "f3"
-      ],
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6"],
       "settings": {
-        "kicker": "Vad du får",
-        "heading": "Tre saker som gör skillnad."
+        "kicker": "Specs",
+        "heading": "Allt du behöver för en riktig hemmabio."
       }
     },
     "story": {
       "type": "hemprojekter-story-block",
       "settings": {
-        "kicker": "Vår tanke",
-        "heading": "Designad för att göra det enkla magiskt.",
-        "body": "<p>Hemprojekter började med en enkel idé: att vardagsrum förtjänar mer än vardagligt ljus. Vi byggde en projektor som förvandlar tak och väggar till en lugn, drömlik stjärnhimmel — utan installation, utan krångel.</p><p>Tryck på en knapp. Andas ut. Rummet känns plötsligt som någon annanstans.</p>",
-        "image": "shopify://shop_images/IMG_9062_66de6bb6-e6b0-4bca-9f09-41decd96076b.jpg",
+        "kicker": "Designad för hemmet",
+        "heading": "Slut på små skärmar.",
+        "body": "<p>Mobilskärmen är liten. TV:n står där den står. Hemprojekter gör vilken tom vägg som helst till en biduk på upp till 150 tum — utan installation, utan kablar runt rummet, utan teknikångest.</p><p>Anslut din mobil, dator, TV-box eller spelkonsol via WiFi, Bluetooth, HDMI eller USB. Tryck play. Klart.</p>",
         "cta_label": "Köp Mini-projektorn",
         "cta_url": "shopify://products/mini-projektor-720p"
       }
@@ -115,104 +61,24 @@
     "how": {
       "type": "hemprojekter-how-it-works",
       "blocks": {
-        "s1": {
-          "type": "step",
-          "settings": {
-            "heading": "Packa upp",
-            "text": "Allt du behöver finns i lådan. USB-C-kabel ingår."
-          }
-        },
-        "s2": {
-          "type": "step",
-          "settings": {
-            "heading": "Sätt på",
-            "text": "En knapptryckning — välj stjärnhimmel eller nordsken."
-          }
-        },
-        "s3": {
-          "type": "step",
-          "settings": {
-            "heading": "Andas ut",
-            "text": "Rummet blir en plats du vill vara i."
-          }
-        }
+        "s1": { "type": "step", "settings": { "heading": "Packa upp", "text": "Allt i lådan. Fjärrkontroll och kabel ingår." } },
+        "s2": { "type": "step", "settings": { "heading": "Anslut", "text": "Mobil, dator, TV-box eller spelkonsol — via WiFi, Bluetooth, HDMI eller USB." } },
+        "s3": { "type": "step", "settings": { "heading": "Tryck play", "text": "150 tum hemmabio på din vägg. Hela rummet blir en salong." } }
       },
-      "block_order": [
-        "s1",
-        "s2",
-        "s3"
-      ],
-      "settings": {
-        "kicker": "Så funkar det",
-        "heading": "Tre steg från låda till stjärnhimmel."
-      }
+      "block_order": ["s1", "s2", "s3"],
+      "settings": { "kicker": "Så funkar det", "heading": "Tre steg från låda till hemmabio." }
     },
     "reviews": {
       "type": "hemprojekter-reviews-wall",
       "blocks": {
-        "r1": {
-          "type": "review",
-          "settings": {
-            "rating": 5,
-            "quote": "Bästa köpet i år. Hela rummet förvandlas direkt.",
-            "author": "Anna",
-            "location": "Göteborg"
-          }
-        },
-        "r2": {
-          "type": "review",
-          "settings": {
-            "rating": 5,
-            "quote": "Min dotter vägrar somna utan stjärnorna numera.",
-            "author": "Mikael",
-            "location": "Stockholm"
-          }
-        },
-        "r3": {
-          "type": "review",
-          "settings": {
-            "rating": 4,
-            "quote": "Snabb leverans och otroligt mysig stämning.",
-            "author": "Linnea",
-            "location": "Malmö"
-          }
-        },
-        "r4": {
-          "type": "review",
-          "settings": {
-            "rating": 5,
-            "quote": "Använder den varje kväll. Värt varenda krona.",
-            "author": "Johan",
-            "location": "Uppsala"
-          }
-        },
-        "r5": {
-          "type": "review",
-          "settings": {
-            "rating": 5,
-            "quote": "Ser mycket dyrare ut än vad den kostar.",
-            "author": "Sara",
-            "location": "Örebro"
-          }
-        },
-        "r6": {
-          "type": "review",
-          "settings": {
-            "rating": 5,
-            "quote": "Perfekt present. Personen som fick den blev helt såld.",
-            "author": "Erik",
-            "location": "Lund"
-          }
-        }
+        "r1": { "type": "review", "settings": { "rating": 5, "quote": "Skippade tv:n helt. Kollar Netflix på 120 tum nu — kan inte gå tillbaka.", "author": "Anna", "location": "Göteborg" } },
+        "r2": { "type": "review", "settings": { "rating": 5, "quote": "Perfekt för barnens fredagsmys. Stor bild, enkelt att starta från mobilen.", "author": "Mikael", "location": "Stockholm" } },
+        "r3": { "type": "review", "settings": { "rating": 4, "quote": "Snabb leverans. Sjukt enkel att koppla mot Apple TV via HDMI.", "author": "Linnea", "location": "Malmö" } },
+        "r4": { "type": "review", "settings": { "rating": 5, "quote": "Använder den varje kväll. Värt varenda krona och mer därtill.", "author": "Johan", "location": "Uppsala" } },
+        "r5": { "type": "review", "settings": { "rating": 5, "quote": "Ser mycket dyrare ut än vad den kostar. Bilden är knivskarp.", "author": "Sara", "location": "Örebro" } },
+        "r6": { "type": "review", "settings": { "rating": 5, "quote": "Tog med den till sommarstugan. Stor matchkväll på ladugårdsväggen.", "author": "Erik", "location": "Lund" } }
       },
-      "block_order": [
-        "r1",
-        "r2",
-        "r3",
-        "r4",
-        "r5",
-        "r6"
-      ],
+      "block_order": ["r1","r2","r3","r4","r5","r6"],
       "settings": {
         "kicker": "Vad kunderna säger",
         "heading": "Bara läs själv.",
@@ -225,75 +91,27 @@
     "faq": {
       "type": "hemprojekter-faq",
       "blocks": {
-        "q1": {
-          "type": "qa",
-          "settings": {
-            "question": "Hur länge tar leveransen?",
-            "answer": "<p>1–3 arbetsdagar inom Sverige. Fri frakt över 499 kr.</p>"
-          }
-        },
-        "q2": {
-          "type": "qa",
-          "settings": {
-            "question": "Hur stort rum täcker den?",
-            "answer": "<p>Upp till cirka 25 m². Bäst i mörker.</p>"
-          }
-        },
-        "q3": {
-          "type": "qa",
-          "settings": {
-            "question": "Kan jag returnera om jag ändrar mig?",
-            "answer": "<p>Ja — 30 dagars öppet köp, inga frågor ställs.</p>"
-          }
-        },
-        "q4": {
-          "type": "qa",
-          "settings": {
-            "question": "Behövs en app?",
-            "answer": "<p>Nej. Fjärrkontroll ingår. Allt funkar utan app eller wifi.</p>"
-          }
-        },
-        "q5": {
-          "type": "qa",
-          "settings": {
-            "question": "Är den barnvänlig?",
-            "answer": "<p>Ja. Låg värmeutveckling, USB-C-driven, inga små lösa delar.</p>"
-          }
-        }
+        "q1": { "type": "qa", "settings": { "question": "Hur länge tar leveransen?", "answer": "<p>1–3 arbetsdagar inom Sverige. Fri frakt över 499 kr.</p>" } },
+        "q2": { "type": "qa", "settings": { "question": "Hur stor blir bilden?", "answer": "<p>Upp till 150 tum, beroende på hur långt från väggen du placerar projektorn. Bäst i ett delvis mörklagt rum.</p>" } },
+        "q3": { "type": "qa", "settings": { "question": "Vad kan jag ansluta?", "answer": "<p>Mobil, dator, spelkonsol, TV-box, USB-minne — via WiFi, Bluetooth, HDMI eller USB. Allt med en skärm fungerar.</p>" } },
+        "q4": { "type": "qa", "settings": { "question": "Behöver jag en app?", "answer": "<p>Nej. Fjärrkontroll ingår och du kan ansluta direkt utan app. WiFi-castning från mobil funkar i alla större operativsystem.</p>" } },
+        "q5": { "type": "qa", "settings": { "question": "Kan jag returnera om jag ändrar mig?", "answer": "<p>Ja — 30 dagars öppet köp, inga frågor ställs.</p>" } },
+        "q6": { "type": "qa", "settings": { "question": "Är den barnvänlig?", "answer": "<p>Ja. Låg värmeutveckling, USB-C-driven, inga små lösa delar. Perfekt för fredagsmys på rummet.</p>" } }
       },
-      "block_order": [
-        "q1",
-        "q2",
-        "q3",
-        "q4",
-        "q5"
-      ],
-      "settings": {
-        "kicker": "Vanliga frågor",
-        "heading": "Det du undrar över — innan du undrar."
-      }
+      "block_order": ["q1","q2","q3","q4","q5","q6"],
+      "settings": { "kicker": "Vanliga frågor", "heading": "Det du undrar över — innan du undrar." }
     },
     "final": {
       "type": "hemprojekter-final-cta",
       "settings": {
-        "kicker": "Sista steget",
-        "heading": "Förvandla ditt rum ikväll.",
-        "subheading": "Beställ före kl 14 — skickas samma dag.",
+        "kicker": "Klart att kolla",
+        "heading": "Din hemmabio. Direkt på din vägg.",
+        "subheading": "Beställ före kl 14 — skickas samma dag från Sverige.",
         "cta_label": "Köp Mini-projektorn — 499 kr",
         "cta_url": "shopify://products/mini-projektor-720p",
-        "fine_print": "Fri frakt över 499 kr · 30 dagars öppet köp"
+        "fine_print": "Fri frakt över 499 kr · 30 dagars öppet köp · Klarna"
       }
     }
   },
-  "order": [
-    "hero",
-    "trust",
-    "demo",
-    "features",
-    "story",
-    "how",
-    "reviews",
-    "faq",
-    "final"
-  ]
+  "order": ["hero", "trust", "demo", "features", "story", "how", "reviews", "faq", "final"]
 }

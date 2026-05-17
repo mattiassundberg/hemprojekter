@@ -1,11 +1,13 @@
 <section class="hp-story">
   <div class="hp-container hp-story__grid">
+    {%- assign story_img = 'https://cdn.shopify.com/s/files/1/0939/9867/8401/files/story-projector.png?v=1779053709' -%}
+    {%- assign story_alt = 'Mini-projektor och smartphone på nattduksbord i varmt skymningsljus' -%}
+    {%- if section.settings.image != blank -%}
+      {%- assign story_img = section.settings.image | image_url: width: 1400 -%}
+      {%- assign story_alt = section.settings.image.alt | default: story_alt -%}
+    {%- endif -%}
     <div class="hp-story__media">
-      {%- if section.settings.image != blank -%}
-        <img src="{{ section.settings.image | image_url: width: 1400 }}"
-             alt="{{ section.settings.image.alt | escape }}"
-             width="1400" height="1750" loading="lazy">
-      {%- endif -%}
+      <img src="{{ story_img }}" alt="{{ story_alt | escape }}" width="1400" height="1750" loading="lazy">
       <div class="hp-story__glow" aria-hidden="true"></div>
     </div>
 
@@ -54,7 +56,12 @@
     pointer-events: none;
   }
   .hp-story__copy { display: grid; gap: 18px; max-width: 56ch; }
-  .hp-story__title { font-size: clamp(1.9rem, 3.5vw, 2.8rem); margin: 0; text-wrap: balance; }
+  .hp-story__title { font-size: clamp(2.1rem, 4.4vw, 3.6rem); margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+  .hp-story__media {
+    box-shadow:
+      0 50px 120px -40px rgba(0, 0, 0, 0.7),
+      0 20px 60px -20px rgba(167, 139, 250, 0.3);
+  }
   .hp-story__body p { margin: 0 0 1em; }
   .hp-story__body p:last-child { margin-bottom: 0; }
   .hp-story__cta { justify-self: start; margin-top: 6px; }

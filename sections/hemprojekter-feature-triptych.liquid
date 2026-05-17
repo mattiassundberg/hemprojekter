@@ -22,42 +22,58 @@
 {% stylesheet %}
   .hp-features { padding-block: var(--hp-section-pad-y); background: var(--hp-bg); }
   .hp-features__head { text-align: center; display: grid; gap: 12px; margin-bottom: clamp(32px, 5vw, 64px); }
-  .hp-features__title { font-size: clamp(2rem, 4vw, 3.2rem); margin: 0; text-wrap: balance; }
+  .hp-features__title { font-size: clamp(2.2rem, 4.6vw, 3.6rem); margin: 0; text-wrap: balance; letter-spacing: -0.02em; max-width: 22ch; margin-inline: auto; }
   .hp-features__grid {
     list-style: none; margin: 0; padding: 0;
-    display: grid; gap: 18px;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    display: grid; gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .hp-features__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 960px) {
+    .hp-features__grid { grid-template-columns: repeat(3, 1fr); }
   }
   .hp-feature {
     padding: 32px 28px;
-    border-radius: var(--hp-radius);
+    border-radius: var(--hp-radius-lg);
     border: 1px solid var(--hp-border);
-    background: linear-gradient(180deg, var(--hp-surface) 0%, rgba(17, 23, 58, 0.4) 100%);
+    background:
+      radial-gradient(120% 100% at 0% 0%, rgba(167, 139, 250, 0.10) 0%, transparent 60%),
+      linear-gradient(180deg, var(--hp-surface) 0%, rgba(17, 23, 58, 0.5) 100%);
     display: grid;
-    gap: 12px;
-    transition: transform var(--hp-dur-med) var(--hp-ease), border-color var(--hp-dur-med) var(--hp-ease);
+    gap: 14px;
+    transition: transform var(--hp-dur-med) var(--hp-ease), border-color var(--hp-dur-med) var(--hp-ease), box-shadow var(--hp-dur-med) var(--hp-ease);
+    position: relative;
+    isolation: isolate;
   }
   @media (prefers-reduced-motion: reduce) {
     .hp-feature { transition: none; }
   }
-  .hp-feature:hover { transform: translateY(-4px); border-color: var(--hp-border-strong); }
+  .hp-feature:hover {
+    transform: translateY(-4px);
+    border-color: rgba(167, 139, 250, 0.4);
+    box-shadow: 0 30px 60px -30px rgba(167, 139, 250, 0.4);
+  }
   .hp-feature__icon {
-    width: 44px; height: 44px;
+    width: 56px; height: 56px;
     display: grid; place-items: center;
     background: linear-gradient(135deg, var(--hp-aurora-2), var(--hp-aurora-3));
     color: #0B1026;
-    border-radius: 12px;
+    border-radius: 14px;
     font-family: var(--hp-font-display);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: 500;
   }
   .hp-feature__title {
     font-family: var(--hp-font-display);
     font-weight: 400;
     margin: 0;
-    font-size: 1.45rem;
+    font-size: 1.55rem;
     color: var(--hp-text);
+    letter-spacing: -0.01em;
   }
-  .hp-feature__body { margin: 0; }
+  .hp-feature__body { margin: 0; font-size: 0.96rem; }
 {% endstylesheet %}
 
 {% schema %}
@@ -67,17 +83,17 @@
   "class": "hp-section hp-section--features",
   "max_blocks": 6,
   "settings": [
-    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Vad du får" },
-    { "type": "text", "id": "heading", "label": "Rubrik", "default": "Tre saker som gör skillnad." }
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Specs" },
+    { "type": "text", "id": "heading", "label": "Rubrik", "default": "Allt du behöver för en riktig hemmabio." }
   ],
   "blocks": [
     {
       "type": "feature",
       "name": "Feature",
       "settings": [
-        { "type": "text", "id": "icon", "label": "Ikon", "default": "✦" },
-        { "type": "text", "id": "heading", "label": "Rubrik", "default": "Stjärnprojektion" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Levande stjärnhimmel i hela rummet, justerbar intensitet och färg." }
+        { "type": "text", "id": "icon", "label": "Ikon", "default": "◱" },
+        { "type": "text", "id": "heading", "label": "Rubrik", "default": "Upp till 150\"" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Stor bild direkt på vägg — som en riktig biosalong i vardagsrummet." }
       ]
     }
   ],
@@ -85,9 +101,12 @@
     {
       "name": "Features — Triptych",
       "blocks": [
-        { "type": "feature", "settings": { "icon": "✦", "heading": "Stjärnprojektion", "text": "Levande stjärnhimmel i hela rummet, justerbar intensitet och färg." } },
-        { "type": "feature", "settings": { "icon": "◐", "heading": "8h timer", "text": "Somna till magin — den stänger av sig själv när du sover." } },
-        { "type": "feature", "settings": { "icon": "♪", "heading": "Bluetooth-högtalare", "text": "Spela din lugna playlist direkt från enheten. Inga sladdar." } }
+        { "type": "feature", "settings": { "icon": "◱", "heading": "Upp till 150\"", "text": "Stor bild direkt på vägg — som en riktig biosalong i vardagsrummet." } },
+        { "type": "feature", "settings": { "icon": "4K", "heading": "4K Ultra HD", "text": "Skarpa, klara bilder i varje scen — varje detalj på sin plats." } },
+        { "type": "feature", "settings": { "icon": "☀", "heading": "Hög ljusstyrka", "text": "Funkar även i ljusare rum, inte bara i totalt mörker." } },
+        { "type": "feature", "settings": { "icon": "♪", "heading": "Inbyggda högtalare", "text": "Tydligt ljud utan externa högtalare. Anslut Bluetooth när du vill ha mer." } },
+        { "type": "feature", "settings": { "icon": "⇆", "heading": "WiFi · BT · HDMI · USB", "text": "Streama trådlöst från mobil, dator, spelkonsol eller TV-box." } },
+        { "type": "feature", "settings": { "icon": "▶", "heading": "Bio, sport, spel, serier", "text": "Allt som finns på din skärm — bara större. Direkt på din vägg." } }
       ]
     }
   ]

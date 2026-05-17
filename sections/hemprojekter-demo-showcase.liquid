@@ -1,15 +1,26 @@
 <section class="hp-demo" id="demo">
   <div class="hp-container hp-demo__head">
-    <p class="hp-kicker">{{ section.settings.kicker }}</p>
+    {%- if section.settings.kicker != blank -%}
+      <p class="hp-kicker">{{ section.settings.kicker }}</p>
+    {%- endif -%}
     {%- if section.settings.heading != blank -%}
       <h2 class="hp-display hp-demo__title">{{ section.settings.heading }}</h2>
     {%- endif -%}
   </div>
 
+  {%- assign after_src = 'https://cdn.shopify.com/s/files/1/0939/9867/8401/files/demo-after.png?v=1779053709' -%}
+  {%- assign before_src = 'https://cdn.shopify.com/s/files/1/0939/9867/8401/files/demo-before.png?v=1779053705' -%}
+  {%- if section.settings.image_after != blank -%}
+    {%- assign after_src = section.settings.image_after | image_url: width: 1920 -%}
+  {%- endif -%}
+  {%- if section.settings.image_before != blank -%}
+    {%- assign before_src = section.settings.image_before | image_url: width: 1920 -%}
+  {%- endif -%}
+
   <div class="hp-container hp-demo__stage">
     {%- if section.settings.mode == 'video' and section.settings.video != blank -%}
       <video class="hp-demo__video"
-             {% if section.settings.image_before != blank %}poster="{{ section.settings.image_before | image_url: width: 1600 }}"{% endif %}
+             poster="{{ before_src }}"
              autoplay muted loop playsinline preload="metadata">
         {%- for source in section.settings.video.sources -%}
           <source src="{{ source.url }}" type="{{ source.mime_type }}">
@@ -17,16 +28,8 @@
       </video>
     {%- else -%}
       <hp-before-after class="hp-demo__ba" tabindex="0" aria-label="Före och efter — använd piltangenter eller dra för att jämföra">
-        {%- if section.settings.image_after != blank -%}
-          <img class="hp-demo__img hp-demo__img--after"
-               src="{{ section.settings.image_after | image_url: width: 1600 }}"
-               alt="{{ section.settings.image_after.alt | escape }}" loading="lazy" width="1600" height="1000">
-        {%- endif -%}
-        {%- if section.settings.image_before != blank -%}
-          <img class="hp-demo__img hp-demo__img--before"
-               src="{{ section.settings.image_before | image_url: width: 1600 }}"
-               alt="{{ section.settings.image_before.alt | escape }}" loading="lazy" width="1600" height="1000">
-        {%- endif -%}
+        <img class="hp-demo__img hp-demo__img--after" src="{{ after_src }}" alt="Hemmabio på vägg — projektor aktiv" loading="lazy" width="1920" height="1080">
+        <img class="hp-demo__img hp-demo__img--before" src="{{ before_src }}" alt="Tom vägg — projektor av" loading="lazy" width="1920" height="1080">
         <span class="hp-demo__handle" aria-hidden="true"><span></span></span>
       </hp-before-after>
     {%- endif -%}
@@ -52,10 +55,13 @@
   .hp-demo__stage {
     border-radius: var(--hp-radius-lg);
     overflow: hidden;
-    border: 1px solid var(--hp-border);
+    border: 1px solid var(--hp-border-strong);
     background: var(--hp-surface);
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
     position: relative;
+    box-shadow:
+      0 60px 140px -50px rgba(0, 0, 0, 0.7),
+      0 30px 80px -30px rgba(167, 139, 250, 0.3);
   }
   .hp-demo__video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
