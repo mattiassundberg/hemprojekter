@@ -1,0 +1,134 @@
+{%- assign product = all_products[section.settings.product] -%}
+
+<section class="hp-reviews">
+  <div class="hp-container">
+    <div class="hp-reviews__head">
+      {%- if section.settings.kicker != blank -%}
+        <p class="hp-kicker">{{ section.settings.kicker }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="hp-display hp-reviews__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="hp-body hp-reviews__sub">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <ul class="hp-reviews__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="hp-review" {{ block.shopify_attributes }}>
+          <div class="hp-review__stars" aria-label="{{ block.settings.rating }} av 5">
+            {%- assign rating = block.settings.rating | plus: 0 -%}
+            {%- for i in (1..5) -%}
+              <span aria-hidden="true">{% if i <= rating %}★{% else %}☆{% endif %}</span>
+            {%- endfor -%}
+          </div>
+          <blockquote class="hp-review__quote">"{{ block.settings.quote }}"</blockquote>
+          <p class="hp-review__author">— {{ block.settings.author }}{% if block.settings.location != blank %}, {{ block.settings.location }}{% endif %}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{%- if product != blank -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "image": [{{ product.featured_image | image_url: width: 1200 | json }}],
+    "offers": {
+      "@type": "Offer",
+      "price": "{{ product.price | money_without_currency | replace: ',', '.' }}",
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "{{ section.settings.avg_rating }}",
+      "reviewCount": "{{ section.settings.review_count }}"
+    }
+  }
+  </script>
+{%- endif -%}
+
+{% stylesheet %}
+  .hp-reviews { padding-block: var(--hp-section-pad-y); background: var(--hp-bg); }
+  .hp-reviews__head { text-align: center; display: grid; gap: 12px; margin-bottom: clamp(32px, 5vw, 64px); }
+  .hp-reviews__title { font-size: clamp(2rem, 4vw, 3.2rem); margin: 0; text-wrap: balance; }
+  .hp-reviews__sub { margin: 0 auto; max-width: 60ch; }
+  .hp-reviews__grid {
+    list-style: none; margin: 0; padding: 0;
+    column-count: 1; column-gap: 18px;
+  }
+  @media (min-width: 720px) { .hp-reviews__grid { column-count: 2; } }
+  @media (min-width: 1080px) { .hp-reviews__grid { column-count: 3; } }
+  .hp-review {
+    break-inside: avoid;
+    margin-bottom: 18px;
+    padding: 24px 22px;
+    border-radius: var(--hp-radius);
+    border: 1px solid var(--hp-border);
+    background: var(--hp-surface);
+    display: grid; gap: 10px;
+  }
+  .hp-review__stars { color: var(--hp-aurora-3); letter-spacing: 2px; }
+  .hp-review__quote {
+    margin: 0;
+    font-family: var(--hp-font-display);
+    font-size: 1.15rem;
+    line-height: 1.45;
+    color: var(--hp-text);
+    font-weight: 400;
+  }
+  .hp-review__author {
+    margin: 0;
+    font-family: var(--hp-font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--hp-text-muted);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Reviews wall",
+  "tag": "section",
+  "class": "hp-section hp-section--reviews",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Vad kunderna säger" },
+    { "type": "text", "id": "heading", "label": "Rubrik", "default": "Bara läs själv." },
+    { "type": "text", "id": "subheading", "label": "Underrubrik", "default": "Verkliga omdömen från Hemprojekter-kunder." },
+    { "type": "product", "id": "product", "label": "Kopplad produkt (för SEO-data)" },
+    { "type": "text", "id": "avg_rating", "label": "Genomsnittsbetyg", "default": "4.8" },
+    { "type": "text", "id": "review_count", "label": "Antal omdömen", "default": "124" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Omdöme",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Betyg", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Citat", "default": "Bästa köpet i år. Hela rummet förvandlas direkt." },
+        { "type": "text", "id": "author", "label": "Namn", "default": "Anna" },
+        { "type": "text", "id": "location", "label": "Ort", "default": "Göteborg" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews wall",
+      "blocks": [
+        { "type": "review", "settings": { "rating": 5, "quote": "Bästa köpet i år. Hela rummet förvandlas direkt.", "author": "Anna", "location": "Göteborg" } },
+        { "type": "review", "settings": { "rating": 5, "quote": "Min dotter vägrar somna utan stjärnorna numera.", "author": "Mikael", "location": "Stockholm" } },
+        { "type": "review", "settings": { "rating": 4, "quote": "Snabb leverans och otroligt mysig stämning.", "author": "Linnea", "location": "Malmö" } },
+        { "type": "review", "settings": { "rating": 5, "quote": "Använder den varje kväll. Värt varenda krona.", "author": "Johan", "location": "Uppsala" } },
+        { "type": "review", "settings": { "rating": 5, "quote": "Ser mycket dyrare ut än vad den kostar.", "author": "Sara", "location": "Örebro" } },
+        { "type": "review", "settings": { "rating": 5, "quote": "Perfekt present. Personen som fick den blev helt såld.", "author": "Erik", "location": "Lund" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
