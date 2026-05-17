@@ -10,13 +10,20 @@
       // No hero CTA on this page — show the bar after a short delay so users on
       // PDP / cart / etc. can still use it.
       bar.classList.add('is-visible');
-      bar.setAttribute('aria-hidden', 'false');
+      bar.removeAttribute('aria-hidden');
+      bar.removeAttribute('inert');
       return;
     }
     var io = new IntersectionObserver(function (entries) {
       var visible = !entries[0].isIntersecting;
       bar.classList.toggle('is-visible', visible);
-      bar.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      if (visible) {
+        bar.removeAttribute('aria-hidden');
+        bar.removeAttribute('inert');
+      } else {
+        bar.setAttribute('aria-hidden', 'true');
+        bar.setAttribute('inert', '');
+      }
     }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
     io.observe(cta);
   }
