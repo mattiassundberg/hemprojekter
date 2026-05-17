@@ -46,7 +46,6 @@
   --hp-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --hp-dur-fast: 180ms;
   --hp-dur-med: 380ms;
-  --hp-dur-slow: 720ms;
 
   /* Layout */
   --hp-radius: 16px;
@@ -55,8 +54,6 @@
   --hp-section-pad-y: clamp(64px, 9vw, 128px);
 }
 
-/* When the homepage uses Aurora, paint the document. */
-body.template-index,
 body.hp-aurora {
   background: var(--hp-bg);
   color: var(--hp-text);
@@ -139,6 +136,7 @@ body.hp-aurora {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .hp-aurora-bloom::before,
