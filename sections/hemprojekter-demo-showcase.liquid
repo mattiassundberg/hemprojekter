@@ -99,31 +99,48 @@
   if (!customElements.get('hp-before-after')) {
     customElements.define('hp-before-after', class extends HTMLElement {
       connectedCallback() {
-        const before = this.querySelector('.hp-demo__img--before');
-        const handle = this.querySelector('.hp-demo__handle');
-        if (!before || !handle) return;
-        const setPos = (clientX) => {
+        this._before = this.querySelector('.hp-demo__img--before');
+        this._handle = this.querySelector('.hp-demo__handle');
+        if (!this._before || !this._handle) return;
+
+        this._handle.style.left = '50%';
+        this._dragging = false;
+
+        this._setPos = (clientX) => {
           const rect = this.getBoundingClientRect();
           const pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
-          before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-          handle.style.left = pct + '%';
+          this._before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+          this._handle.style.left = pct + '%';
         };
-        let dragging = false;
-        const start = (e) => { dragging = true; setPos((e.touches ? e.touches[0] : e).clientX); };
-        const move = (e) => { if (dragging) setPos((e.touches ? e.touches[0] : e).clientX); };
-        const end = () => { dragging = false; };
-        this.addEventListener('mousedown', start);
-        this.addEventListener('touchstart', start, { passive: true });
-        window.addEventListener('mousemove', move);
-        window.addEventListener('touchmove', move, { passive: true });
-        window.addEventListener('mouseup', end);
-        window.addEventListener('touchend', end);
-        this.addEventListener('keydown', (e) => {
+
+        this._start = (e) => { this._dragging = true; this._setPos((e.touches ? e.touches[0] : e).clientX); };
+        this._move  = (e) => { if (this._dragging) this._setPos((e.touches ? e.touches[0] : e).clientX); };
+        this._end   = () => { this._dragging = false; };
+        this._key   = (e) => {
           const rect = this.getBoundingClientRect();
-          const current = parseFloat(handle.style.left || '50');
-          if (e.key === 'ArrowLeft') { e.preventDefault(); setPos(rect.left + rect.width * Math.max(0, current - 5) / 100); }
-          if (e.key === 'ArrowRight') { e.preventDefault(); setPos(rect.left + rect.width * Math.min(100, current + 5) / 100); }
-        });
+          const current = parseFloat(this._handle.style.left || '50');
+          if (e.key === 'ArrowLeft')  { e.preventDefault(); this._setPos(rect.left + rect.width * Math.max(0, current - 5) / 100); }
+          if (e.key === 'ArrowRight') { e.preventDefault(); this._setPos(rect.left + rect.width * Math.min(100, current + 5) / 100); }
+        };
+
+        this.addEventListener('mousedown', this._start);
+        this.addEventListener('touchstart', this._start, { passive: true });
+        this.addEventListener('keydown', this._key);
+        window.addEventListener('mousemove', this._move);
+        window.addEventListener('touchmove', this._move, { passive: true });
+        window.addEventListener('mouseup', this._end);
+        window.addEventListener('touchend', this._end);
+      }
+
+      disconnectedCallback() {
+        if (this._move) {
+          window.removeEventListener('mousemove', this._move);
+          window.removeEventListener('touchmove', this._move);
+        }
+        if (this._end) {
+          window.removeEventListener('mouseup', this._end);
+          window.removeEventListener('touchend', this._end);
+        }
       }
     });
   }
