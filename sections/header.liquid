@@ -1,24 +1,24 @@
 {{ 'hemprojekter-aurora.css' | asset_url | stylesheet_tag }}
 
-<sticky-header class="hp-header" data-template="{{ template.name }}">
+<header class="hp-header" role="banner">
   <div class="hp-header__inner hp-container">
     <a class="hp-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
       <span class="hp-wordmark">Hemprojekter</span>
     </a>
 
     <nav class="hp-header__actions" aria-label="Genvägar">
-      <a class="hp-iconbtn" href="{{ routes.search_url }}" aria-label="Sök">
-        {{- 'icon-search.svg' | inline_asset_content -}}
+      <a class="hp-iconbtn" href="{{ routes.search_url }}" aria-label="{{ 'general.search.search' | t }}">
+        <span aria-hidden="true">{{- 'icon-search.svg' | inline_asset_content -}}</span>
       </a>
       <a class="hp-iconbtn hp-iconbtn--cart" href="{{ routes.cart_url }}" aria-label="Varukorg ({{ cart.item_count }})">
-        {{- 'icon-cart.svg' | inline_asset_content -}}
+        <span aria-hidden="true">{{- 'icon-cart.svg' | inline_asset_content -}}</span>
         {% if cart.item_count > 0 %}
           <span class="hp-iconbtn__count">{{ cart.item_count }}</span>
         {% endif %}
       </a>
     </nav>
   </div>
-</sticky-header>
+</header>
 
 {% stylesheet %}
   .hp-header {
@@ -27,10 +27,16 @@
     z-index: 50;
     width: 100%;
     background: transparent;
-    transition: background-color var(--hp-dur-med) var(--hp-ease),
-                backdrop-filter var(--hp-dur-med) var(--hp-ease),
-                border-color var(--hp-dur-med) var(--hp-ease);
     border-bottom: 1px solid transparent;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hp-header {
+      transition: background-color var(--hp-dur-med) var(--hp-ease),
+                  backdrop-filter var(--hp-dur-med) var(--hp-ease),
+                  -webkit-backdrop-filter var(--hp-dur-med) var(--hp-ease),
+                  border-color var(--hp-dur-med) var(--hp-ease);
+    }
   }
 
   .hp-header.is-stuck {
@@ -88,6 +94,12 @@
     color: var(--hp-aurora-1);
   }
 
+  .hp-iconbtn:focus-visible,
+  .hp-header__brand:focus-visible {
+    outline: 2px solid var(--hp-aurora-1);
+    outline-offset: 3px;
+  }
+
   .hp-iconbtn__count {
     position: absolute;
     top: -4px;
@@ -107,15 +119,21 @@
 
 <script>
   (function () {
-    const header = document.querySelector('.hp-header');
-    if (!header) return;
-    const sentinel = document.createElement('div');
-    sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px;';
-    document.body.prepend(sentinel);
-    const io = new IntersectionObserver(function (entries) {
-      header.classList.toggle('is-stuck', !entries[0].isIntersecting);
-    }, { rootMargin: '-80px 0px 0px 0px' });
-    io.observe(sentinel);
+    if (window.__hpHeaderInit) return;
+    window.__hpHeaderInit = true;
+    function attach() {
+      var header = document.querySelector('.hp-header');
+      if (!header) return;
+      var io = new IntersectionObserver(function (entries) {
+        header.classList.toggle('is-stuck', entries[0].intersectionRatio < 1);
+      }, { threshold: [1], rootMargin: '-1px 0px 0px 0px' });
+      io.observe(header);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', attach);
+    } else {
+      attach();
+    }
   })();
 </script>
 
