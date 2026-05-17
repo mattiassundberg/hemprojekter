@@ -2190,5 +2190,21 @@
         "default": "+ Add"
       }
     ]
+  },
+  {
+    "name": "Hemprojekter — Aurora",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Rörelser och animationer"
+      },
+      {
+        "type": "checkbox",
+        "id": "hp_reduce_decorative_motion",
+        "label": "Reducera dekorativa animationer",
+        "info": "Tvinga av animationer även om webbläsaren inte ber om det.",
+        "default": false
+      }
+    ]
   }
 ]
