@@ -1,0 +1,180 @@
+<section class="hp-hero" id="shopify-section-{{ section.id }}">
+  <div class="hp-aurora-bloom" aria-hidden="true"></div>
+
+  {%- if section.settings.video != blank -%}
+    <video class="hp-hero__video"
+           {% if section.settings.poster != blank %}poster="{{ section.settings.poster | image_url: width: 1920 }}"{% endif %}
+           autoplay muted loop playsinline preload="metadata">
+      {%- for source in section.settings.video.sources -%}
+        <source src="{{ source.url }}" type="{{ source.mime_type }}">
+      {%- endfor -%}
+    </video>
+  {%- elsif section.settings.poster != blank -%}
+    <img class="hp-hero__video"
+         src="{{ section.settings.poster | image_url: width: 1920 }}"
+         alt="{{ section.settings.poster.alt | escape }}"
+         width="1920" height="1080" loading="eager" fetchpriority="high">
+  {%- endif -%}
+
+  <div class="hp-hero__veil" aria-hidden="true"></div>
+
+  <div class="hp-hero__content hp-container">
+    {%- if section.settings.kicker != blank -%}
+      <p class="hp-kicker hp-hero__kicker">{{ section.settings.kicker }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h1 class="hp-display hp-hero__title">{{ section.settings.heading }}</h1>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="hp-body hp-hero__sub">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div class="hp-hero__cta">
+      <a class="hp-button hp-button--primary" href="{{ section.settings.cta_url }}" data-hero-cta>
+        {{ section.settings.cta_label }}
+      </a>
+      {%- if section.settings.secondary_label != blank -%}
+        <a class="hp-button hp-button--ghost" href="{{ section.settings.secondary_url }}">
+          {{ section.settings.secondary_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.klarna_line != blank -%}
+      <p class="hp-hero__klarna">{{ section.settings.klarna_line }}</p>
+    {%- endif -%}
+  </div>
+
+  <a class="hp-hero__scroll" href="#hp-after-hero" aria-label="Scrolla för att se mer">
+    <span></span>
+  </a>
+</section>
+
+<div id="hp-after-hero" tabindex="-1"></div>
+
+{% stylesheet %}
+  .hp-hero {
+    position: relative;
+    min-height: clamp(560px, 96vh, 920px);
+    display: grid;
+    place-items: end center;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--hp-bg);
+    margin-top: calc(-1 * var(--hp-header-h));
+    padding-top: var(--hp-header-h);
+  }
+
+  .hp-hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  .hp-hero__veil {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 70% at 50% 100%, rgba(11,16,38,0.92) 0%, rgba(11,16,38,0.55) 60%, transparent 100%),
+      linear-gradient(180deg, rgba(11,16,38,0.55) 0%, rgba(11,16,38,0.2) 35%, rgba(11,16,38,0.85) 100%);
+    z-index: 0;
+  }
+
+  .hp-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding-block: clamp(56px, 9vh, 96px);
+    max-width: 880px;
+    display: grid;
+    gap: 18px;
+    justify-items: center;
+  }
+
+  .hp-hero__kicker { margin-bottom: 6px; }
+
+  .hp-hero__title {
+    font-size: clamp(2.6rem, 6.2vw, 5.4rem);
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .hp-hero__sub {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    max-width: 56ch;
+    margin: 0;
+  }
+
+  .hp-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .hp-hero__klarna {
+    font-family: var(--hp-font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--hp-text-muted);
+    margin: 6px 0 0;
+  }
+
+  .hp-hero__scroll {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px; height: 36px;
+    border: 1px solid var(--hp-border-strong);
+    border-radius: 999px;
+    z-index: 2;
+    display: grid;
+    place-items: start center;
+    padding-top: 6px;
+  }
+  .hp-hero__scroll span {
+    width: 3px; height: 8px;
+    background: var(--hp-aurora-1);
+    border-radius: 999px;
+    animation: hp-scroll 1.8s var(--hp-ease) infinite;
+  }
+  @keyframes hp-scroll {
+    0% { transform: translateY(0); opacity: 1; }
+    70% { transform: translateY(14px); opacity: 0; }
+    100% { transform: translateY(14px); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hp-hero__scroll span { animation: none; }
+  }
+
+  @media (max-width: 640px) {
+    .hp-hero { min-height: 88vh; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero — Aurora",
+  "tag": "section",
+  "class": "hp-section hp-section--hero",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker (liten etikett ovanför rubrik)", "default": "Mini-projektor 720p" },
+    { "type": "text", "id": "heading", "label": "Rubrik", "default": "Förvandla ditt rum till en magisk värld." },
+    { "type": "textarea", "id": "subheading", "label": "Underrubrik", "default": "På sekunder. Med en knapptryckning. Hogwarts-känsla hemma — varje kväll." },
+    { "type": "text", "id": "cta_label", "label": "CTA-text", "default": "Köp nu — 499 kr" },
+    { "type": "url", "id": "cta_url", "label": "CTA-länk" },
+    { "type": "text", "id": "secondary_label", "label": "Sekundär länk-text", "default": "Se demo" },
+    { "type": "url", "id": "secondary_url", "label": "Sekundär länk" },
+    { "type": "text", "id": "klarna_line", "label": "Klarna-rad", "default": "Eller 4 räntefria delbetalningar via Klarna." },
+    { "type": "image_picker", "id": "poster", "label": "Bild / video-poster" },
+    { "type": "video", "id": "video", "label": "Hero-video (mp4). Lämna tom för att bara visa bild." }
+  ],
+  "presets": [ { "name": "Hero — Aurora" } ]
+}
+{% endschema %}
