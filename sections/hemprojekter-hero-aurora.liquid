@@ -3,11 +3,14 @@
 <section class="hp-hero" id="shopify-section-{{ section.id }}">
   <div class="hp-aurora-bloom" aria-hidden="true"></div>
 
-  {%- if section.settings.video_url != blank -%}
+  {%- if section.settings.video != blank -%}
     <video class="hp-hero__video"
-           poster="{{ section.settings.poster | image_url: width: 1920 }}"
-           src="{{ section.settings.video_url }}"
-           autoplay muted loop playsinline preload="metadata"></video>
+           {% if section.settings.poster != blank %}poster="{{ section.settings.poster | image_url: width: 1920 }}"{% endif %}
+           autoplay muted loop playsinline preload="metadata">
+      {%- for source in section.settings.video.sources -%}
+        <source src="{{ source.url }}" type="{{ source.mime_type }}">
+      {%- endfor -%}
+    </video>
   {%- elsif section.settings.poster != blank -%}
     <img class="hp-hero__video"
          src="{{ section.settings.poster | image_url: width: 1920 }}"
@@ -21,7 +24,9 @@
     {%- if section.settings.kicker != blank -%}
       <p class="hp-kicker hp-hero__kicker">{{ section.settings.kicker }}</p>
     {%- endif -%}
-    <h1 class="hp-display hp-hero__title">{{ section.settings.heading }}</h1>
+    {%- if section.settings.heading != blank -%}
+      <h1 class="hp-display hp-hero__title">{{ section.settings.heading }}</h1>
+    {%- endif -%}
     {%- if section.settings.subheading != blank -%}
       <p class="hp-body hp-hero__sub">{{ section.settings.subheading }}</p>
     {%- endif -%}
@@ -58,8 +63,8 @@
     overflow: hidden;
     isolation: isolate;
     background: var(--hp-bg);
-    margin-top: -88px;
-    padding-top: 88px;
+    margin-top: calc(-1 * var(--hp-header-h));
+    padding-top: var(--hp-header-h);
   }
 
   .hp-hero__video {
@@ -146,6 +151,10 @@
     100% { transform: translateY(14px); opacity: 0; }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .hp-hero__scroll span { animation: none; }
+  }
+
   @media (max-width: 640px) {
     .hp-hero { min-height: 88vh; }
   }
@@ -166,7 +175,7 @@
     { "type": "url", "id": "secondary_url", "label": "Sekundär länk", "default": "#demo" },
     { "type": "text", "id": "klarna_line", "label": "Klarna-rad", "default": "Eller 4 räntefria delbetalningar via Klarna." },
     { "type": "image_picker", "id": "poster", "label": "Bild / video-poster" },
-    { "type": "url", "id": "video_url", "label": "Video-URL (mp4). Lämna tom för att bara visa bild." }
+    { "type": "video", "id": "video", "label": "Hero-video (mp4). Lämna tom för att bara visa bild." }
   ],
   "presets": [ { "name": "Hero — Aurora" } ]
 }

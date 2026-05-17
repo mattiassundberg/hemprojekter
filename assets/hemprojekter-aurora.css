@@ -52,6 +52,7 @@
   --hp-radius-lg: 28px;
   --hp-container: min(1200px, 92vw);
   --hp-section-pad-y: clamp(64px, 9vw, 128px);
+  --hp-header-h: 88px;
 }
 
 body.hp-aurora {
