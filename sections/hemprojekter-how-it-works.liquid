@@ -1,0 +1,90 @@
+<section class="hp-how">
+  <div class="hp-container">
+    <div class="hp-how__head">
+      {%- if section.settings.kicker != blank -%}
+        <p class="hp-kicker">{{ section.settings.kicker }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="hp-display hp-how__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <ol class="hp-how__list" role="list">
+      {%- for block in section.blocks -%}
+        <li class="hp-how__step" {{ block.shopify_attributes }}>
+          <span class="hp-how__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <h3 class="hp-how__step-title">{{ block.settings.heading }}</h3>
+          <p class="hp-body hp-how__step-body">{{ block.settings.text }}</p>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% stylesheet %}
+  .hp-how { padding-block: var(--hp-section-pad-y); background: var(--hp-bg); }
+  .hp-how__head { text-align: center; display: grid; gap: 12px; margin-bottom: clamp(36px, 5vw, 64px); }
+  .hp-how__title { font-size: clamp(2rem, 4vw, 3.2rem); margin: 0; text-wrap: balance; }
+  .hp-how__list {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    position: relative;
+    counter-reset: hp-step;
+  }
+  .hp-how__step {
+    padding: 28px 24px;
+    border-radius: var(--hp-radius);
+    border: 1px solid var(--hp-border);
+    background: var(--hp-surface);
+    display: grid; gap: 10px;
+    position: relative;
+  }
+  .hp-how__num {
+    font-family: var(--hp-font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    color: var(--hp-aurora-1);
+  }
+  .hp-how__step-title {
+    font-family: var(--hp-font-display);
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin: 0;
+    color: var(--hp-text);
+  }
+  .hp-how__step-body { margin: 0; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "How it works",
+  "tag": "section",
+  "class": "hp-section hp-section--how",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Så funkar det" },
+    { "type": "text", "id": "heading", "label": "Rubrik", "default": "Tre steg från låda till stjärnhimmel." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Steg",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Steg-rubrik", "default": "Packa upp" },
+        { "type": "textarea", "id": "text", "label": "Steg-text", "default": "Allt du behöver finns i lådan. USB-C-kabel ingår." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How it works",
+      "blocks": [
+        { "type": "step", "settings": { "heading": "Packa upp", "text": "Allt du behöver finns i lådan. USB-C-kabel ingår." } },
+        { "type": "step", "settings": { "heading": "Sätt på", "text": "En knapptryckning — välj stjärnhimmel eller nordsken." } },
+        { "type": "step", "settings": { "heading": "Andas ut", "text": "Rummet blir en plats du vill vara i." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
