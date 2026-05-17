@@ -40,7 +40,7 @@
     "image": [{{ product.featured_image | image_url: width: 1200 | json }}],
     "offers": {
       "@type": "Offer",
-      "price": "{{ product.price | money_without_currency | replace: ',', '.' }}",
+      "price": "{{ product.price | divided_by: 100.0 }}",
       "priceCurrency": {{ cart.currency.iso_code | json }},
       "availability": "https://schema.org/InStock"
     },
