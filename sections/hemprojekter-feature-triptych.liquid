@@ -1,87 +1,147 @@
 <section class="hp-features">
-  <div class="hp-container">
-    <div class="hp-features__head">
-      <p class="hp-kicker">{{ section.settings.kicker }}</p>
-      {%- if section.settings.heading != blank -%}
-        <h2 class="hp-display hp-features__title">{{ section.settings.heading }}</h2>
-      {%- endif -%}
+  <div class="hp-container--wide">
+    <div class="hp-section-label hp-reveal">
+      <span class="hp-section-label__num">03 / 06</span>
+      <span class="hp-section-label__title">{{ section.settings.kicker | default: 'Specs' }}</span>
     </div>
 
-    <ul class="hp-features__grid" role="list">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="hp-display hp-features__title hp-reveal">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="hp-features__layout">
       {%- for block in section.blocks -%}
-        <li class="hp-feature" {{ block.shopify_attributes }}>
-          <span class="hp-feature__icon" aria-hidden="true">{{ block.settings.icon }}</span>
-          <h3 class="hp-feature__title">{{ block.settings.heading }}</h3>
-          <p class="hp-feature__body hp-body">{{ block.settings.text }}</p>
-        </li>
+        {%- if forloop.first -%}
+          <article class="hp-feature hp-feature--lead hp-reveal" {{ block.shopify_attributes }}>
+            <span class="hp-feature__num">{{ block.settings.icon }}</span>
+            <div class="hp-feature__body">
+              <h3 class="hp-feature__title">{{ block.settings.heading }}</h3>
+              <p class="hp-feature__text">{{ block.settings.text }}</p>
+            </div>
+            <div class="hp-feature__glow" aria-hidden="true"></div>
+          </article>
+        {%- else -%}
+          <article class="hp-feature hp-feature--sm hp-reveal" {{ block.shopify_attributes }}>
+            <span class="hp-feature__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+            <h3 class="hp-feature__title">{{ block.settings.heading }}</h3>
+            <p class="hp-feature__text">{{ block.settings.text }}</p>
+          </article>
+        {%- endif -%}
       {%- endfor -%}
-    </ul>
+    </div>
   </div>
 </section>
 
 {% stylesheet %}
-  .hp-features { padding-block: var(--hp-section-pad-y); background: var(--hp-bg); }
-  .hp-features__head { text-align: center; display: grid; gap: 12px; margin-bottom: clamp(32px, 5vw, 64px); }
-  .hp-features__title { font-size: clamp(2.2rem, 4.6vw, 3.6rem); margin: 0; text-wrap: balance; letter-spacing: -0.02em; max-width: 22ch; margin-inline: auto; }
-  .hp-features__grid {
-    list-style: none; margin: 0; padding: 0;
-    display: grid; gap: 16px;
-    grid-template-columns: 1fr;
+  .hp-features { padding-block: var(--hp-section-pad-y); position: relative; }
+
+  .hp-features__title {
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    margin: 0 0 clamp(40px, 5vw, 72px);
+    text-wrap: balance;
+    letter-spacing: -0.03em;
+    max-width: 22ch;
   }
-  @media (min-width: 640px) {
-    .hp-features__grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (min-width: 960px) {
-    .hp-features__grid { grid-template-columns: repeat(3, 1fr); }
-  }
-  .hp-feature {
-    padding: 32px 28px;
-    border-radius: var(--hp-radius-lg);
-    border: 1px solid var(--hp-border);
-    background:
-      radial-gradient(120% 100% at 0% 0%, rgba(167, 139, 250, 0.10) 0%, transparent 60%),
-      linear-gradient(180deg, var(--hp-surface) 0%, rgba(17, 23, 58, 0.5) 100%);
+
+  .hp-features__layout {
     display: grid;
-    gap: 14px;
-    transition: transform var(--hp-dur-med) var(--hp-ease), border-color var(--hp-dur-med) var(--hp-ease), box-shadow var(--hp-dur-med) var(--hp-ease);
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 880px) {
+    .hp-features__layout {
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-auto-rows: minmax(0, auto);
+    }
+    .hp-feature--lead { grid-row: span 2; }
+  }
+
+  .hp-feature {
     position: relative;
     isolation: isolate;
+    border: 1px solid var(--hp-border);
+    background: linear-gradient(180deg, var(--hp-surface) 0%, rgba(14,12,24,0.55) 100%);
+    border-radius: var(--hp-radius-lg);
+    overflow: hidden;
+    transition: border-color var(--hp-dur-med) var(--hp-ease), transform var(--hp-dur-med) var(--hp-ease);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .hp-feature { transition: none; }
+  .hp-feature:hover { border-color: rgba(244,183,102,0.35); transform: translateY(-3px); }
+
+  .hp-feature--lead {
+    padding: clamp(36px, 4vw, 56px);
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 36px;
+    background:
+      radial-gradient(80% 80% at 20% 110%, rgba(244,183,102,0.18) 0%, transparent 60%),
+      linear-gradient(180deg, var(--hp-surface-2) 0%, rgba(14,12,24,0.7) 100%);
+    min-height: 380px;
   }
-  .hp-feature:hover {
-    transform: translateY(-4px);
-    border-color: rgba(167, 139, 250, 0.4);
-    box-shadow: 0 30px 60px -30px rgba(167, 139, 250, 0.4);
-  }
-  .hp-feature__icon {
-    width: 56px; height: 56px;
-    display: grid; place-items: center;
-    background: linear-gradient(135deg, var(--hp-aurora-2), var(--hp-aurora-3));
-    color: #0B1026;
-    border-radius: 14px;
+  .hp-feature__num {
     font-family: var(--hp-font-display);
-    font-size: 1.3rem;
-    font-weight: 500;
+    font-size: clamp(5rem, 12vw, 11rem);
+    font-style: italic;
+    color: var(--hp-aurora-1);
+    letter-spacing: -0.05em;
+    line-height: 0.85;
+    align-self: end;
   }
-  .hp-feature__title {
+  .hp-feature--lead .hp-feature__body { display: grid; gap: 14px; max-width: 32ch; }
+  .hp-feature--lead .hp-feature__title {
     font-family: var(--hp-font-display);
     font-weight: 400;
     margin: 0;
-    font-size: 1.55rem;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    letter-spacing: -0.02em;
+  }
+  .hp-feature--lead .hp-feature__text { margin: 0; color: var(--hp-text-muted); }
+
+  .hp-feature__glow {
+    position: absolute;
+    width: 60%;
+    aspect-ratio: 1;
+    bottom: -30%;
+    right: -10%;
+    background: radial-gradient(circle, rgba(167,139,250,0.35), transparent 60%);
+    filter: blur(60px);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .hp-feature--sm {
+    padding: 28px 26px;
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+  .hp-feature--sm .hp-feature__icon {
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+    border: 1px solid var(--hp-border-strong);
+    color: var(--hp-aurora-1);
+    font-family: var(--hp-font-display);
+    font-style: italic;
+    font-size: 1.3rem;
+    background: rgba(244,183,102,0.06);
+  }
+  .hp-feature--sm .hp-feature__title {
+    font-family: var(--hp-font-display);
+    font-weight: 400;
+    margin: 0;
+    font-size: 1.35rem;
     color: var(--hp-text);
     letter-spacing: -0.01em;
   }
-  .hp-feature__body { margin: 0; font-size: 0.96rem; }
+  .hp-feature--sm .hp-feature__text { margin: 0; color: var(--hp-text-muted); font-size: 0.94rem; }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "Features — Triptych",
+  "name": "Features — Editorial",
   "tag": "section",
   "class": "hp-section hp-section--features",
-  "max_blocks": 6,
+  "max_blocks": 8,
   "settings": [
     { "type": "text", "id": "kicker", "label": "Kicker", "default": "Specs" },
     { "type": "text", "id": "heading", "label": "Rubrik", "default": "Allt du behöver för en riktig hemmabio." }
@@ -91,22 +151,22 @@
       "type": "feature",
       "name": "Feature",
       "settings": [
-        { "type": "text", "id": "icon", "label": "Ikon", "default": "◱" },
-        { "type": "text", "id": "heading", "label": "Rubrik", "default": "Upp till 150\"" },
+        { "type": "text", "id": "icon", "label": "Ikon eller siffra", "default": "150″" },
+        { "type": "text", "id": "heading", "label": "Rubrik", "default": "Upp till 150 tum" },
         { "type": "textarea", "id": "text", "label": "Text", "default": "Stor bild direkt på vägg — som en riktig biosalong i vardagsrummet." }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Features — Triptych",
+      "name": "Features — Editorial",
       "blocks": [
-        { "type": "feature", "settings": { "icon": "◱", "heading": "Upp till 150\"", "text": "Stor bild direkt på vägg — som en riktig biosalong i vardagsrummet." } },
+        { "type": "feature", "settings": { "icon": "150″", "heading": "Upp till 150 tum", "text": "Stor bild direkt på vägg — som en riktig biosalong i vardagsrummet. Sluta nöja dig med små skärmar." } },
         { "type": "feature", "settings": { "icon": "4K", "heading": "4K Ultra HD", "text": "Skarpa, klara bilder i varje scen — varje detalj på sin plats." } },
         { "type": "feature", "settings": { "icon": "☀", "heading": "Hög ljusstyrka", "text": "Funkar även i ljusare rum, inte bara i totalt mörker." } },
-        { "type": "feature", "settings": { "icon": "♪", "heading": "Inbyggda högtalare", "text": "Tydligt ljud utan externa högtalare. Anslut Bluetooth när du vill ha mer." } },
+        { "type": "feature", "settings": { "icon": "♪", "heading": "Inbyggda högtalare", "text": "Tydligt ljud utan extern högtalare. Anslut Bluetooth när du vill ha mer." } },
         { "type": "feature", "settings": { "icon": "⇆", "heading": "WiFi · BT · HDMI · USB", "text": "Streama trådlöst från mobil, dator, spelkonsol eller TV-box." } },
-        { "type": "feature", "settings": { "icon": "▶", "heading": "Bio, sport, spel, serier", "text": "Allt som finns på din skärm — bara större. Direkt på din vägg." } }
+        { "type": "feature", "settings": { "icon": "▶", "heading": "Bio · sport · spel · serier", "text": "Allt som finns på din skärm — bara större. Direkt på din vägg." } }
       ]
     }
   ]

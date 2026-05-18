@@ -1,41 +1,62 @@
 <section class="hp-trust" id="shopify-section-{{ section.id }}">
-  <ul class="hp-container hp-trust__inner" role="list">
-    {%- for block in section.blocks -%}
-      <li class="hp-trust__item" {{ block.shopify_attributes }}>
-        {%- if block.settings.icon != blank -%}
-          <span class="hp-trust__icon" aria-hidden="true">{{ block.settings.icon }}</span>
-        {%- endif -%}
-        <span class="hp-trust__text">{{ block.settings.text }}</span>
-      </li>
+  <div class="hp-trust__track" aria-label="Förmåner">
+    {%- for i in (1..2) -%}
+      {%- for block in section.blocks -%}
+        <span class="hp-trust__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <span class="hp-trust__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+          {%- endif -%}
+          <span class="hp-trust__text">{{ block.settings.text }}</span>
+          <span class="hp-trust__dot" aria-hidden="true">✦</span>
+        </span>
+      {%- endfor -%}
     {%- endfor -%}
-  </ul>
+  </div>
 </section>
 
 {% stylesheet %}
   .hp-trust {
-    background: var(--hp-bg);
+    position: relative;
+    background: var(--hp-bg-deep);
+    border-top: 1px solid var(--hp-border);
     border-bottom: 1px solid var(--hp-border);
+    overflow: hidden;
+    padding-block: 22px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
   }
-  .hp-trust__inner {
-    list-style: none;
-    margin: 0;
-    padding-inline: 0;
+  .hp-trust__track {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: clamp(14px, 3vw, 36px);
-    padding-block: 18px;
+    align-items: center;
+    gap: 56px;
+    width: max-content;
+    animation: hp-trust-scroll 38s linear infinite;
+    will-change: transform;
   }
   .hp-trust__item {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-family: var(--hp-font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
-    color: var(--hp-text-muted);
+    gap: 14px;
+    font-family: var(--hp-font-display);
+    font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+    color: var(--hp-text);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
   }
-  .hp-trust__icon { color: var(--hp-aurora-1); }
+  .hp-trust__icon { color: var(--hp-aurora-1); font-size: 1.1em; }
+  .hp-trust__dot {
+    color: var(--hp-aurora-2);
+    opacity: 0.7;
+    font-size: 0.7em;
+    margin-left: 14px;
+  }
+  @keyframes hp-trust-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hp-trust__track { animation: none; flex-wrap: wrap; justify-content: center; width: 100%; }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -43,7 +64,7 @@
   "name": "Trust bar",
   "tag": "section",
   "class": "hp-section hp-section--trust",
-  "max_blocks": 6,
+  "max_blocks": 8,
   "blocks": [
     {
       "type": "trust_item",
@@ -59,9 +80,10 @@
       "name": "Trust bar",
       "blocks": [
         { "type": "trust_item", "settings": { "icon": "★", "text": "4.8 / 5 — 124 omdömen" } },
-        { "type": "trust_item", "settings": { "icon": "✦", "text": "Fri frakt över 499 kr" } },
         { "type": "trust_item", "settings": { "icon": "↺", "text": "30 dagars öppet köp" } },
-        { "type": "trust_item", "settings": { "icon": "⌖", "text": "Skickas från Sverige" } }
+        { "type": "trust_item", "settings": { "icon": "⌖", "text": "Skickas från Sverige" } },
+        { "type": "trust_item", "settings": { "icon": "✦", "text": "Fri frakt över 499 kr" } },
+        { "type": "trust_item", "settings": { "icon": "K", "text": "Delbetala med Klarna" } }
       ]
     }
   ]

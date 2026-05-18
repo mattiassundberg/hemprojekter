@@ -1,75 +1,100 @@
 <section class="hp-demo" id="demo">
-  <div class="hp-container hp-demo__head">
-    {%- if section.settings.kicker != blank -%}
-      <p class="hp-kicker">{{ section.settings.kicker }}</p>
-    {%- endif -%}
-    {%- if section.settings.heading != blank -%}
-      <h2 class="hp-display hp-demo__title">{{ section.settings.heading }}</h2>
-    {%- endif -%}
+  <div class="hp-container--wide hp-demo__head hp-reveal">
+    <div class="hp-section-label">
+      <span class="hp-section-label__num">02 / 06</span>
+      <span class="hp-section-label__title">Före / Efter</span>
+    </div>
+    <div class="hp-demo__intro">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="hp-display hp-demo__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="hp-body hp-demo__sub">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
   </div>
 
   {%- assign after_src = 'https://cdn.shopify.com/s/files/1/0939/9867/8401/files/demo-after.png?v=1779053709' -%}
   {%- assign before_src = 'https://cdn.shopify.com/s/files/1/0939/9867/8401/files/demo-before.png?v=1779053705' -%}
   {%- if section.settings.image_after != blank -%}
-    {%- assign after_src = section.settings.image_after | image_url: width: 1920 -%}
+    {%- assign after_src = section.settings.image_after | image_url: width: 2400 -%}
   {%- endif -%}
   {%- if section.settings.image_before != blank -%}
-    {%- assign before_src = section.settings.image_before | image_url: width: 1920 -%}
+    {%- assign before_src = section.settings.image_before | image_url: width: 2400 -%}
   {%- endif -%}
 
-  <div class="hp-container hp-demo__stage">
-    {%- if section.settings.mode == 'video' and section.settings.video != blank -%}
-      <video class="hp-demo__video"
-             poster="{{ before_src }}"
-             autoplay muted loop playsinline preload="metadata">
-        {%- for source in section.settings.video.sources -%}
-          <source src="{{ source.url }}" type="{{ source.mime_type }}">
-        {%- endfor -%}
-      </video>
-    {%- else -%}
-      <hp-before-after class="hp-demo__ba" tabindex="0" aria-label="Före och efter — använd piltangenter eller dra för att jämföra">
-        <img class="hp-demo__img hp-demo__img--after" src="{{ after_src }}" alt="Hemmabio på vägg — projektor aktiv" loading="lazy" width="1920" height="1080">
-        <img class="hp-demo__img hp-demo__img--before" src="{{ before_src }}" alt="Tom vägg — projektor av" loading="lazy" width="1920" height="1080">
-        <span class="hp-demo__handle" aria-hidden="true"><span></span></span>
-      </hp-before-after>
-    {%- endif -%}
+  <div class="hp-demo__stage-wrap hp-container--wide hp-reveal hp-reveal--lg">
+    <div class="hp-demo__stage">
+      {%- if section.settings.mode == 'video' and section.settings.video != blank -%}
+        <video class="hp-demo__video" poster="{{ before_src }}" autoplay muted loop playsinline preload="metadata">
+          {%- for source in section.settings.video.sources -%}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {%- endfor -%}
+        </video>
+      {%- else -%}
+        <hp-before-after class="hp-demo__ba" tabindex="0" aria-label="Före och efter — använd piltangenter eller dra för att jämföra">
+          <img class="hp-demo__img hp-demo__img--after" src="{{ after_src }}" alt="Hemmabio på vägg — projektor aktiv" loading="lazy" width="2400" height="1350">
+          <img class="hp-demo__img hp-demo__img--before" src="{{ before_src }}" alt="Tom vägg — projektor av" loading="lazy" width="2400" height="1350">
+          <span class="hp-demo__handle" aria-hidden="true"><span class="hp-demo__handle-dot"></span></span>
+          <span class="hp-demo__label hp-demo__label--before" aria-hidden="true">Före</span>
+          <span class="hp-demo__label hp-demo__label--after" aria-hidden="true">Efter</span>
+        </hp-before-after>
+      {%- endif -%}
+    </div>
   </div>
 </section>
 
 {% stylesheet %}
   .hp-demo {
     padding-block: var(--hp-section-pad-y);
-    background: var(--hp-bg);
+    position: relative;
   }
+
   .hp-demo__head {
-    text-align: center;
     display: grid;
-    gap: 12px;
-    margin-bottom: clamp(28px, 4vw, 56px);
+    gap: 36px;
+    margin-bottom: clamp(40px, 5vw, 72px);
+  }
+  .hp-demo__intro {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: end;
+  }
+  @media (min-width: 880px) {
+    .hp-demo__intro { grid-template-columns: 1.4fr 1fr; gap: 56px; }
   }
   .hp-demo__title {
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-size: clamp(2.6rem, 6vw, 5rem);
     margin: 0;
     text-wrap: balance;
+    letter-spacing: -0.03em;
+    max-width: 18ch;
   }
+  .hp-demo__sub { margin: 0; max-width: 42ch; align-self: end; }
+
+  .hp-demo__stage-wrap { position: relative; }
   .hp-demo__stage {
-    border-radius: var(--hp-radius-lg);
+    border-radius: var(--hp-radius-xl);
     overflow: hidden;
     border: 1px solid var(--hp-border-strong);
     background: var(--hp-surface);
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 21 / 9;
     position: relative;
     box-shadow:
-      0 60px 140px -50px rgba(0, 0, 0, 0.7),
-      0 30px 80px -30px rgba(167, 139, 250, 0.3);
+      0 80px 180px -60px rgba(0, 0, 0, 0.9),
+      0 40px 100px -30px rgba(244, 183, 102, 0.18);
   }
+  @media (max-width: 720px) {
+    .hp-demo__stage { aspect-ratio: 4 / 3; }
+  }
+
   .hp-demo__video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   hp-before-after {
     display: block;
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     overflow: hidden;
     cursor: ew-resize;
     user-select: none;
@@ -80,21 +105,49 @@
     position: absolute;
     top: 0; bottom: 0;
     left: 50%;
-    width: 2px;
-    background: var(--hp-aurora-1);
-    transform: translateX(-1px);
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(244,183,102,0.9) 20%, rgba(244,183,102,0.9) 80%, transparent);
+    transform: translateX(-0.5px);
     pointer-events: none;
   }
-  .hp-demo__handle span {
+  .hp-demo__handle-dot {
     position: absolute;
     top: 50%; left: 50%;
-    width: 44px; height: 44px;
+    width: 52px; height: 52px;
     border-radius: 999px;
-    background: var(--hp-bg);
+    background: var(--hp-bg-deep);
     border: 1px solid var(--hp-aurora-1);
     transform: translate(-50%, -50%);
-    box-shadow: 0 12px 40px rgba(124, 255, 203, 0.25);
+    box-shadow: 0 16px 50px rgba(244, 183, 102, 0.4);
   }
+  .hp-demo__handle-dot::before {
+    content: "↔";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--hp-aurora-1);
+    font-family: var(--hp-font-mono);
+    font-size: 0.9rem;
+  }
+
+  .hp-demo__label {
+    position: absolute;
+    top: 18px;
+    font-family: var(--hp-font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(7,6,12,0.75);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--hp-border-strong);
+    color: var(--hp-text);
+  }
+  .hp-demo__label--before { left: 18px; }
+  .hp-demo__label--after { right: 18px; color: var(--hp-aurora-1); border-color: rgba(244,183,102,0.3); }
+
   hp-before-after:focus-visible {
     outline: 2px solid var(--hp-aurora-1);
     outline-offset: 4px;
@@ -159,7 +212,8 @@
   "class": "hp-section hp-section--demo",
   "settings": [
     { "type": "text", "id": "kicker", "label": "Kicker", "default": "Se det själv" },
-    { "type": "text", "id": "heading", "label": "Rubrik", "default": "Innan. Efter. Som magi." },
+    { "type": "text", "id": "heading", "label": "Rubrik", "default": "Tom vägg. På sekunder — hemmabio." },
+    { "type": "textarea", "id": "subheading", "label": "Underrubrik", "default": "Dra reglaget. Samma vägg. Två världar — en med taklampa, en med 150 tum film." },
     { "type": "select", "id": "mode", "label": "Läge",
       "options": [
         { "value": "before_after", "label": "Före / efter-slider" },

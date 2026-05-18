@@ -1,9 +1,12 @@
 <section class="hp-faq">
+  <div class="hp-container--wide">
+    <div class="hp-section-label hp-reveal">
+      <span class="hp-section-label__num">05½ / 06</span>
+      <span class="hp-section-label__title">{{ section.settings.kicker | default: 'Frågor' }}</span>
+    </div>
+  </div>
   <div class="hp-container hp-faq__inner">
-    <div class="hp-faq__head">
-      {%- if section.settings.kicker != blank -%}
-        <p class="hp-kicker">{{ section.settings.kicker }}</p>
-      {%- endif -%}
+    <div class="hp-faq__head hp-reveal">
       {%- if section.settings.heading != blank -%}
         <h2 class="hp-display hp-faq__title">{{ section.settings.heading }}</h2>
       {%- endif -%}

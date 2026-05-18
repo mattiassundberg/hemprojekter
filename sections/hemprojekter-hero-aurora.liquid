@@ -1,54 +1,64 @@
 <section class="hp-hero" id="shopify-section-{{ section.id }}">
-  <div class="hp-aurora-bloom" aria-hidden="true"></div>
+  <div class="hp-hero__media" aria-hidden="true">
+    <video class="hp-hero__video"
+           {% if section.settings.poster != blank %}poster="{{ section.settings.poster | image_url: width: 2400 }}"{% else %}poster="https://cdn.shopify.com/s/files/1/0939/9867/8401/files/demo-after.png?v=1779053709"{% endif %}
+           autoplay muted loop playsinline preload="metadata">
+      {%- if section.settings.video != blank -%}
+        {%- for source in section.settings.video.sources -%}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {%- endfor -%}
+      {%- else -%}
+        <source src="https://cdn.shopify.com/videos/c/o/v/f07717c51c434626a1b1ffd14f80b604.mp4" type="video/mp4">
+      {%- endif -%}
+    </video>
+    <div class="hp-hero__scrim"></div>
+    <div class="hp-hero__vignette"></div>
+  </div>
 
-  <div class="hp-hero__inner hp-container">
-    <div class="hp-hero__copy">
-      {%- if section.settings.kicker != blank -%}
-        <p class="hp-kicker hp-hero__kicker">{{ section.settings.kicker }}</p>
-      {%- endif -%}
-      {%- if section.settings.heading != blank -%}
-        <h1 class="hp-display hp-hero__title">{{ section.settings.heading | replace: '<p>', '' | replace: '</p>', '' }}</h1>
-      {%- endif -%}
-      {%- if section.settings.subheading != blank -%}
-        <p class="hp-body hp-hero__sub">{{ section.settings.subheading }}</p>
-      {%- endif -%}
+  <div class="hp-hero__top hp-container--wide">
+    <span class="hp-hero__mark">01 · Hemmabio</span>
+    <span class="hp-hero__mark hp-hero__mark--right">N° 720p</span>
+  </div>
 
-      <div class="hp-hero__cta">
-        <a class="hp-button hp-button--primary" href="{{ section.settings.cta_url }}" data-hero-cta>
-          {{ section.settings.cta_label }}
-        </a>
-        {%- if section.settings.secondary_label != blank -%}
-          <a class="hp-button hp-button--ghost" href="{{ section.settings.secondary_url }}">
-            {{ section.settings.secondary_label }}
+  <div class="hp-hero__content hp-container--wide">
+    {%- if section.settings.kicker != blank -%}
+      <p class="hp-kicker hp-hero__kicker">{{ section.settings.kicker }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h1 class="hp-display hp-hero__title">{{ section.settings.heading | replace: '<p>', '' | replace: '</p>', '' }}</h1>
+    {%- endif -%}
+
+    <div class="hp-hero__base">
+      <div class="hp-hero__left">
+        {%- if section.settings.subheading != blank -%}
+          <p class="hp-body hp-hero__sub">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        <div class="hp-hero__cta">
+          <a class="hp-button hp-button--primary" href="{{ section.settings.cta_url }}" data-hero-cta>
+            {{ section.settings.cta_label }}
           </a>
+          {%- if section.settings.secondary_label != blank -%}
+            <a class="hp-button hp-button--ghost" href="{{ section.settings.secondary_url }}">
+              {{ section.settings.secondary_label }}
+            </a>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.klarna_line != blank -%}
+          <p class="hp-hero__klarna">{{ section.settings.klarna_line }}</p>
         {%- endif -%}
       </div>
 
-      {%- if section.settings.klarna_line != blank -%}
-        <p class="hp-hero__klarna">{{ section.settings.klarna_line }}</p>
-      {%- endif -%}
-    </div>
-
-    <div class="hp-hero__media">
-      <div class="hp-hero__media-frame">
-        <video class="hp-hero__video"
-               {% if section.settings.poster != blank %}poster="{{ section.settings.poster | image_url: width: 1920 }}"{% else %}poster="https://cdn.shopify.com/s/files/1/0939/9867/8401/files/demo-after.png?v=1779053709"{% endif %}
-               autoplay muted loop playsinline preload="metadata">
-          {%- if section.settings.video != blank -%}
-            {%- for source in section.settings.video.sources -%}
-              <source src="{{ source.url }}" type="{{ source.mime_type }}">
-            {%- endfor -%}
-          {%- else -%}
-            <source src="https://cdn.shopify.com/videos/c/o/v/f07717c51c434626a1b1ffd14f80b604.mp4" type="video/mp4">
-          {%- endif -%}
-        </video>
-        <div class="hp-hero__media-glow" aria-hidden="true"></div>
-      </div>
+      <dl class="hp-hero__specs">
+        <div><dt>Bildstorlek</dt><dd>upp till 150"</dd></div>
+        <div><dt>Upplösning</dt><dd>4K Ultra HD</dd></div>
+        <div><dt>Anslutning</dt><dd>WiFi · BT · HDMI · USB</dd></div>
+      </dl>
     </div>
   </div>
 
   <a class="hp-hero__scroll" href="#hp-after-hero" aria-label="Scrolla för att se mer">
-    <span></span>
+    <span class="hp-hero__scroll-label">Skrolla</span>
+    <span class="hp-hero__scroll-dot"></span>
   </a>
 </section>
 
@@ -57,138 +67,172 @@
 {% stylesheet %}
   .hp-hero {
     position: relative;
-    min-height: clamp(640px, 100vh, 1000px);
+    min-height: 100svh;
     overflow: hidden;
     isolation: isolate;
     background: var(--hp-bg);
     margin-top: calc(-1 * var(--hp-header-h));
-    padding-top: var(--hp-header-h);
     display: grid;
-    align-items: center;
+    grid-template-rows: auto 1fr auto;
   }
 
-  .hp-hero__inner {
+  .hp-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .hp-hero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.05);
+  }
+  .hp-hero__scrim {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(7,6,12,0.85) 0%, rgba(7,6,12,0.45) 28%, rgba(7,6,12,0.55) 60%, rgba(7,6,12,0.95) 100%),
+      linear-gradient(90deg, rgba(7,6,12,0.75) 0%, rgba(7,6,12,0.15) 50%, rgba(7,6,12,0.55) 100%);
+  }
+  .hp-hero__vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(120% 80% at 50% 30%, transparent 0%, rgba(7,6,12,0.7) 100%);
+    mix-blend-mode: multiply;
+  }
+
+  .hp-hero__top {
     position: relative;
-    z-index: 2;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    padding-block: calc(var(--hp-header-h) + 20px) 0;
+    font-family: var(--hp-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--hp-text-dim);
+  }
+  .hp-hero__mark--right { color: var(--hp-aurora-1); }
+
+  .hp-hero__content {
+    position: relative;
+    z-index: 3;
+    align-self: end;
+    padding-block: clamp(48px, 8vh, 88px);
     display: grid;
-    gap: clamp(40px, 5vw, 72px);
-    grid-template-columns: 1fr;
-    padding-block: clamp(48px, 8vh, 96px);
-    align-items: center;
+    gap: clamp(28px, 4vw, 56px);
   }
 
-  @media (min-width: 960px) {
-    .hp-hero__inner { grid-template-columns: 1.05fr 1fr; }
-  }
-
-  .hp-hero__copy {
-    display: grid;
-    gap: 22px;
-    justify-items: start;
-    text-align: left;
-    max-width: 38rem;
-  }
-
-  .hp-hero__kicker { margin: 0; }
+  .hp-hero__kicker { color: var(--hp-aurora-1); }
 
   .hp-hero__title {
-    font-size: clamp(3rem, 7.5vw, 6.6rem);
+    font-size: clamp(3.4rem, 11vw, 11rem);
     margin: 0;
     text-wrap: balance;
-    letter-spacing: -0.03em;
-    line-height: 0.98;
+    letter-spacing: -0.045em;
+    line-height: 0.9;
+    max-width: 14ch;
   }
 
+  .hp-hero__base {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 4vw, 64px);
+    align-items: end;
+  }
+  @media (min-width: 880px) {
+    .hp-hero__base { grid-template-columns: 1.3fr 1fr; }
+  }
+
+  .hp-hero__left { display: grid; gap: 20px; max-width: 44ch; }
+
   .hp-hero__sub {
-    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-    max-width: 48ch;
-    margin: 6px 0 0;
     color: var(--hp-text);
-    opacity: 0.84;
+    opacity: 0.9;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    margin: 0;
   }
 
   .hp-hero__cta {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 12px;
+    margin-top: 4px;
   }
 
   .hp-hero__klarna {
     font-family: var(--hp-font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
     color: var(--hp-text-muted);
-    margin: 4px 0 0;
+    margin: 0;
   }
 
-  .hp-hero__media {
-    position: relative;
-    width: 100%;
+  .hp-hero__specs {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    border-top: 1px solid var(--hp-border-strong);
+    padding-top: 18px;
   }
-
-  .hp-hero__media-frame {
-    position: relative;
-    aspect-ratio: 16 / 10;
-    border-radius: var(--hp-radius-lg);
-    overflow: hidden;
-    border: 1px solid var(--hp-border-strong);
-    background: var(--hp-surface);
-    box-shadow:
-      0 50px 120px -40px rgba(0, 0, 0, 0.7),
-      0 24px 60px -20px rgba(167, 139, 250, 0.35);
+  @media (min-width: 600px) {
+    .hp-hero__specs { grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .hp-hero__specs > div { padding-right: 18px; }
+    .hp-hero__specs > div + div { border-left: 1px solid var(--hp-border-strong); padding-left: 18px; }
   }
-
-  .hp-hero__video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  .hp-hero__specs dt {
+    font-family: var(--hp-font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--hp-text-dim);
+    margin-bottom: 6px;
   }
-
-  .hp-hero__media-glow {
-    position: absolute;
-    inset: -8% -10% -20% -10%;
-    z-index: -1;
-    background:
-      radial-gradient(60% 60% at 20% 100%, rgba(167, 139, 250, 0.55), transparent 60%),
-      radial-gradient(60% 60% at 90% 0%, rgba(124, 255, 203, 0.4), transparent 60%);
-    filter: blur(50px);
-    opacity: 0.9;
+  .hp-hero__specs dd {
+    margin: 0;
+    font-family: var(--hp-font-display);
+    font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+    color: var(--hp-text);
+    letter-spacing: -0.01em;
   }
 
   .hp-hero__scroll {
     position: absolute;
-    bottom: 24px;
+    bottom: 22px;
     left: 50%;
     transform: translateX(-50%);
-    width: 22px; height: 36px;
-    border: 1px solid var(--hp-border-strong);
-    border-radius: 999px;
     z-index: 3;
     display: grid;
-    place-items: start center;
-    padding-top: 6px;
+    place-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--hp-text-dim);
+    font-family: var(--hp-font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
   }
-  .hp-hero__scroll span {
-    width: 3px; height: 8px;
+  .hp-hero__scroll-dot {
+    width: 6px; height: 6px;
     background: var(--hp-aurora-1);
-    border-radius: 999px;
-    animation: hp-scroll 1.8s var(--hp-ease) infinite;
+    border-radius: 50%;
+    animation: hp-scroll-dot 1.6s var(--hp-ease) infinite;
   }
-  @keyframes hp-scroll {
+  @keyframes hp-scroll-dot {
     0% { transform: translateY(0); opacity: 1; }
-    70% { transform: translateY(14px); opacity: 0; }
-    100% { transform: translateY(14px); opacity: 0; }
+    70% { transform: translateY(8px); opacity: 0; }
+    100% { transform: translateY(8px); opacity: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hp-hero__scroll span { animation: none; }
+    .hp-hero__scroll-dot { animation: none; }
+    .hp-hero__video { transform: none; }
   }
 
   @media (max-width: 640px) {
-    .hp-hero { min-height: 92vh; }
-    .hp-hero__title { font-size: clamp(2.6rem, 11vw, 4rem); }
+    .hp-hero__title { font-size: clamp(3rem, 13vw, 5rem); }
   }
 {% endstylesheet %}
 
@@ -207,7 +251,7 @@
     { "type": "url", "id": "secondary_url", "label": "Sekundär länk" },
     { "type": "text", "id": "klarna_line", "label": "Klarna-rad", "default": "Eller 4 räntefria delbetalningar via Klarna." },
     { "type": "image_picker", "id": "poster", "label": "Bild / video-poster" },
-    { "type": "video", "id": "video", "label": "Hero-video (mp4). Lämna tom för att använda standardvideon." }
+    { "type": "video", "id": "video", "label": "Hero-video (mp4). Lämna tom för standard." }
   ],
   "presets": [ { "name": "Hero — Aurora" } ]
 }
