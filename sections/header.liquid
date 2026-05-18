@@ -1,7 +1,8 @@
 <header class="hp-header" role="banner">
   <div class="hp-header__inner hp-container">
     <a class="hp-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-      <span class="hp-wordmark">Hemprojekter</span>
+      <img class="hp-logo" src="{{ 'hemprojekter-logo.png' | asset_url }}" alt="Hemprojekter" width="1200" height="670" loading="eager" fetchpriority="high">
+      <span class="hp-wordmark visually-hidden">Hemprojekter</span>
     </a>
 
     <nav class="hp-header__actions" aria-label="Genvägar">
@@ -38,10 +39,10 @@
   }
 
   .hp-header.is-stuck {
-    background: rgba(11, 16, 38, 0.72);
+    background: rgba(7, 6, 12, 0.78);
     backdrop-filter: saturate(140%) blur(14px);
     -webkit-backdrop-filter: saturate(140%) blur(14px);
-    border-bottom-color: var(--hp-border);
+    border-bottom-color: var(--hp-border-strong);
   }
 
   .hp-header__inner {
@@ -62,6 +63,24 @@
     font-weight: 400;
     font-size: clamp(1.3rem, 1.5vw, 1.55rem);
     letter-spacing: -0.01em;
+  }
+
+  .hp-logo {
+    display: block;
+    width: auto;
+    height: clamp(36px, 4vw, 52px);
+    max-width: 100%;
+    mix-blend-mode: lighten;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .hp-header__actions {
