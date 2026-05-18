@@ -186,7 +186,8 @@
       var toggle = e.target.closest('[data-cart-toggle]');
       if (toggle) {
         e.preventDefault();
-        open();
+        if (drawer && drawer.hasAttribute('data-open')) close();
+        else open();
         return;
       }
       var form = e.target.closest('form[data-cart-add-form]');
