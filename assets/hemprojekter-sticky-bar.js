@@ -5,17 +5,14 @@
   function init() {
     var bar = document.querySelector('[data-hp-sticky]');
     var cta = document.querySelector('[data-hero-cta]');
+    var footer = document.querySelector('.hp-footer') || document.querySelector('footer');
     if (!bar) return;
-    if (!cta) {
-      // No hero CTA on this page — show the bar after a short delay so users on
-      // PDP / cart / etc. can still use it.
-      bar.classList.add('is-visible');
-      bar.removeAttribute('aria-hidden');
-      bar.removeAttribute('inert');
-      return;
-    }
-    var io = new IntersectionObserver(function (entries) {
-      var visible = !entries[0].isIntersecting;
+
+    var pastHero = !cta;
+    var atFooter = false;
+
+    function apply() {
+      var visible = pastHero && !atFooter;
       bar.classList.toggle('is-visible', visible);
       if (visible) {
         bar.removeAttribute('aria-hidden');
@@ -24,8 +21,32 @@
         bar.setAttribute('aria-hidden', 'true');
         bar.setAttribute('inert', '');
       }
-    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
-    io.observe(cta);
+    }
+
+    if (cta) {
+      var heroIO = new IntersectionObserver(function (entries) {
+        pastHero = !entries[0].isIntersecting;
+        apply();
+      }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+      heroIO.observe(cta);
+    }
+
+    var hideZones = [];
+    if (footer) hideZones.push(footer);
+    var finalCta = document.querySelector('.hp-cta-final');
+    if (finalCta) hideZones.push(finalCta);
+
+    if (hideZones.length) {
+      var hideStates = new WeakMap();
+      var hideIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { hideStates.set(e.target, e.isIntersecting); });
+        atFooter = hideZones.some(function (el) { return hideStates.get(el); });
+        apply();
+      }, { threshold: 0 });
+      hideZones.forEach(function (el) { hideIO.observe(el); });
+    }
+
+    apply();
   }
 
   if (document.readyState === 'loading') {
