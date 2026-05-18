@@ -35,7 +35,7 @@
     "features": {
       "type": "hemprojekter-feature-triptych",
       "blocks": {
-        "f1": { "type": "feature", "settings": { "image_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DreXrQjfR3HAlY8BXUgsMLjIwT/hf_20260518_073332_61b6eb48-8090-456a-b551-941f61e32784.png", "icon": "150″", "heading": "Upp till 150\"", "text": "Stor bild direkt på vägg — som en riktig biosalong i vardagsrummet." } },
+        "f1": { "type": "feature", "settings": { "image_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DreXrQjfR3HAlY8BXUgsMLjIwT/hf_20260518_073909_53e18e58-a0e1-4f2a-b8ce-e80211c5961b.png", "icon": "150″", "heading": "Upp till 150\"", "text": "Stor bild direkt på vägg — som en riktig biosalong i vardagsrummet." } },
         "f2": { "type": "feature", "settings": { "image_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DreXrQjfR3HAlY8BXUgsMLjIwT/hf_20260518_071737_1da0ea5f-bbd1-4361-a802-a82767f880e4.png", "icon": "4K", "heading": "4K Ultra HD", "text": "Skarpa, klara bilder i varje scen — varje detalj på sin plats." } },
         "f3": { "type": "feature", "settings": { "image_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DreXrQjfR3HAlY8BXUgsMLjIwT/hf_20260518_073346_37e7ff2f-68bd-4bb2-988c-dab528e8e78c.png", "icon": "☀", "heading": "Hög ljusstyrka", "text": "Funkar även i ljusare rum, inte bara i totalt mörker." } },
         "f4": { "type": "feature", "settings": { "image_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DreXrQjfR3HAlY8BXUgsMLjIwT/hf_20260518_071801_0bada3b4-abff-4564-8163-1bee9d110cdc.png", "icon": "♪", "heading": "Inbyggda högtalare", "text": "Tydligt ljud utan externa högtalare. Anslut Bluetooth när du vill ha mer." } },
