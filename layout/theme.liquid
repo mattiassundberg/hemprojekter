@@ -395,7 +395,9 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
+    {% section 'hemprojekter-cart-drawer' %}
     {% render 'hemprojekter-sticky-buy-bar' %}
+    <script src="{{ 'hemprojekter-cart.js' | asset_url }}" defer></script>
     <script src="{{ 'hemprojekter-sticky-bar.js' | asset_url }}" defer></script>
     <script src="{{ 'hemprojekter-motion.js' | asset_url }}" defer></script>
   </body>

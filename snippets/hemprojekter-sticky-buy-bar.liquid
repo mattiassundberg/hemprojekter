@@ -18,8 +18,9 @@
           <span class="hp-sticky__klarna">eller 4× {{ product.price | divided_by: 4 | money }} via Klarna</span>
         </p>
       </div>
-      <form method="post" action="{{ routes.cart_add_url }}" class="hp-sticky__form">
+      <form method="post" action="{{ routes.cart_add_url }}" class="hp-sticky__form" data-cart-add-form>
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
         <button type="submit" class="hp-button hp-button--primary hp-sticky__btn">Lägg i varukorg</button>
       </form>
     </div>

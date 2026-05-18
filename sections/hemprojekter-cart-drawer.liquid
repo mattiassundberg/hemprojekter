@@ -1,0 +1,355 @@
+<hp-cart-drawer class="hp-cart" data-hp-cart aria-hidden="true" inert>
+  <div class="hp-cart__overlay" data-cart-close aria-hidden="true"></div>
+
+  <aside class="hp-cart__panel" role="dialog" aria-modal="true" aria-label="Varukorg" tabindex="-1">
+    <header class="hp-cart__head">
+      <div>
+        <p class="hp-cart__kicker" aria-hidden="true">Varukorg</p>
+        <h2 class="hp-cart__title">
+          {%- if cart.item_count > 0 -%}
+            {{ cart.item_count }} {% if cart.item_count == 1 %}vara{% else %}varor{% endif %}
+          {%- else -%}
+            Tom varukorg
+          {%- endif -%}
+        </h2>
+      </div>
+      <button type="button" class="hp-cart__close" data-cart-close aria-label="Stäng varukorg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </header>
+
+    {%- if cart.item_count > 0 -%}
+      <ul class="hp-cart__list" role="list">
+        {%- for line in cart.items -%}
+          <li class="hp-cart__line" data-cart-line data-line-key="{{ line.key }}" data-line-index="{{ forloop.index }}">
+            <a class="hp-cart__line-img" href="{{ line.url }}" tabindex="-1" aria-hidden="true">
+              {%- if line.image -%}
+                <img src="{{ line.image | image_url: width: 240 }}" alt="" loading="lazy" width="120" height="120">
+              {%- endif -%}
+            </a>
+            <div class="hp-cart__line-body">
+              <a class="hp-cart__line-title" href="{{ line.url }}">{{ line.product.title }}</a>
+              {%- unless line.product.has_only_default_variant -%}
+                <p class="hp-cart__line-variant">{{ line.variant.title }}</p>
+              {%- endunless -%}
+              <div class="hp-cart__line-foot">
+                <div class="hp-cart__qty" role="group" aria-label="Antal">
+                  <button type="button" class="hp-cart__qbtn" data-cart-qty="-1" aria-label="Minska antal">−</button>
+                  <span class="hp-cart__qval" aria-live="polite">{{ line.quantity }}</span>
+                  <button type="button" class="hp-cart__qbtn" data-cart-qty="1" aria-label="Öka antal">+</button>
+                </div>
+                <span class="hp-cart__line-price">{{ line.final_line_price | money }}</span>
+              </div>
+              <button type="button" class="hp-cart__remove" data-cart-remove>Ta bort</button>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <footer class="hp-cart__foot">
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          <ul class="hp-cart__discounts" role="list">
+            {%- for discount in cart.cart_level_discount_applications -%}
+              <li>{{ discount.title }} <span>−{{ discount.total_allocated_amount | money }}</span></li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        <div class="hp-cart__subtotal">
+          <span class="hp-cart__subtotal-label">Summa</span>
+          <span class="hp-cart__subtotal-amount">{{ cart.total_price | money }}</span>
+        </div>
+        <p class="hp-cart__note">Frakt, skatter och rabatter beräknas i kassan.</p>
+        <a class="hp-button hp-button--primary hp-cart__checkout" href="{{ routes.cart_url }}/checkout">
+          Till kassan
+        </a>
+        <a class="hp-cart__viewcart" href="{{ routes.cart_url }}">Visa hela varukorgen</a>
+      </footer>
+    {%- else -%}
+      <div class="hp-cart__empty">
+        <p class="hp-cart__empty-title">Tom varukorg.</p>
+        <p class="hp-cart__empty-sub">Hitta din nya favoritprojektor och kom igång.</p>
+        <button type="button" class="hp-button hp-button--ghost hp-cart__empty-cta" data-cart-close>Fortsätt handla</button>
+      </div>
+    {%- endif -%}
+  </aside>
+</hp-cart-drawer>
+
+{% stylesheet %}
+  .hp-cart {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .hp-cart[data-open] {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .hp-cart__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 2, 8, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 320ms var(--hp-ease);
+  }
+  .hp-cart[data-open] .hp-cart__overlay { opacity: 1; }
+
+  .hp-cart__panel {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: min(460px, 100vw);
+    background: linear-gradient(180deg, #14111f 0%, #07060c 100%);
+    border-left: 1px solid var(--hp-border-strong);
+    box-shadow: -40px 0 100px -20px rgba(0,0,0,0.8);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    transform: translateX(100%);
+    transition: transform 420ms var(--hp-ease);
+    outline: none;
+  }
+  .hp-cart[data-open] .hp-cart__panel { transform: translateX(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hp-cart__overlay, .hp-cart__panel { transition: opacity 120ms; }
+    .hp-cart__panel { transform: none; }
+  }
+
+  .hp-cart__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 26px 28px 22px;
+    border-bottom: 1px solid var(--hp-border);
+  }
+  .hp-cart__kicker {
+    margin: 0 0 6px;
+    font-family: var(--hp-font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--hp-aurora-1);
+  }
+  .hp-cart__title {
+    margin: 0;
+    font-family: var(--hp-font-display);
+    font-weight: 400;
+    font-size: 1.85rem;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--hp-text);
+  }
+  .hp-cart__close {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--hp-border-strong);
+    color: var(--hp-text);
+    width: 40px; height: 40px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: border-color var(--hp-dur-fast) var(--hp-ease), color var(--hp-dur-fast) var(--hp-ease);
+  }
+  .hp-cart__close svg { width: 18px; height: 18px; }
+  .hp-cart__close:hover { border-color: var(--hp-aurora-1); color: var(--hp-aurora-1); }
+
+  .hp-cart__list {
+    list-style: none;
+    margin: 0;
+    padding: 22px 28px;
+    overflow-y: auto;
+    display: grid;
+    gap: 22px;
+    align-content: start;
+  }
+  .hp-cart__line {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 18px;
+  }
+  .hp-cart__line-img {
+    display: block;
+    width: 88px; height: 88px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--hp-surface);
+    border: 1px solid var(--hp-border-strong);
+  }
+  .hp-cart__line-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hp-cart__line-body { display: grid; gap: 8px; align-content: start; min-width: 0; }
+  .hp-cart__line-title {
+    font-family: var(--hp-font-display);
+    font-weight: 400;
+    font-size: 1.15rem;
+    line-height: 1.2;
+    color: var(--hp-text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .hp-cart__line-title:hover { color: var(--hp-aurora-1); }
+  .hp-cart__line-variant {
+    margin: 0;
+    font-family: var(--hp-font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--hp-text-muted);
+  }
+  .hp-cart__line-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .hp-cart__qty {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--hp-border-strong);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .hp-cart__qbtn {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: var(--hp-text);
+    width: 32px; height: 32px;
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--hp-dur-fast) var(--hp-ease), color var(--hp-dur-fast) var(--hp-ease);
+  }
+  .hp-cart__qbtn:hover { background: rgba(244,183,102,0.1); color: var(--hp-aurora-1); }
+  .hp-cart__qval {
+    min-width: 30px;
+    text-align: center;
+    font-family: var(--hp-font-mono);
+    font-size: 0.95rem;
+    color: var(--hp-text);
+  }
+  .hp-cart__line-price {
+    font-family: var(--hp-font-display);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--hp-aurora-1);
+    letter-spacing: -0.01em;
+  }
+  .hp-cart__remove {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 4px 0 0;
+    justify-self: start;
+    font-family: var(--hp-font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--hp-text-dim);
+    cursor: pointer;
+    transition: color var(--hp-dur-fast) var(--hp-ease);
+  }
+  .hp-cart__remove:hover { color: var(--hp-aurora-3); }
+
+  .hp-cart__foot {
+    border-top: 1px solid var(--hp-border);
+    padding: 22px 28px calc(22px + env(safe-area-inset-bottom));
+    display: grid;
+    gap: 14px;
+  }
+  .hp-cart__discounts {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; gap: 6px;
+    font-family: var(--hp-font-mono);
+    font-size: 0.8rem;
+    color: var(--hp-aurora-1);
+  }
+  .hp-cart__discounts li { display: flex; justify-content: space-between; }
+  .hp-cart__subtotal {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    padding-block: 6px 4px;
+    border-top: 1px solid var(--hp-border);
+  }
+  .hp-cart__subtotal-label {
+    font-family: var(--hp-font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--hp-text-muted);
+  }
+  .hp-cart__subtotal-amount {
+    font-family: var(--hp-font-display);
+    font-style: italic;
+    font-size: 1.9rem;
+    color: var(--hp-aurora-1);
+    letter-spacing: -0.01em;
+  }
+  .hp-cart__note {
+    margin: 0;
+    font-family: var(--hp-font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    color: var(--hp-text-dim);
+  }
+  .hp-cart__checkout {
+    justify-content: center;
+    width: 100%;
+    margin-top: 4px;
+  }
+  .hp-cart__viewcart {
+    text-align: center;
+    font-family: var(--hp-font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--hp-text-muted);
+    text-decoration: none;
+    padding-block: 6px;
+    transition: color var(--hp-dur-fast) var(--hp-ease);
+  }
+  .hp-cart__viewcart:hover { color: var(--hp-aurora-1); }
+
+  .hp-cart__empty {
+    align-self: center;
+    text-align: center;
+    padding: 60px 28px;
+    display: grid;
+    gap: 14px;
+    justify-items: center;
+  }
+  .hp-cart__empty-title {
+    margin: 0;
+    font-family: var(--hp-font-display);
+    font-size: 2rem;
+    color: var(--hp-text);
+    letter-spacing: -0.02em;
+  }
+  .hp-cart__empty-sub {
+    margin: 0;
+    color: var(--hp-text-muted);
+    font-size: 1.05rem;
+    max-width: 28ch;
+  }
+  .hp-cart__empty-cta { margin-top: 8px; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "tag": "div",
+  "class": "hp-cart-section",
+  "settings": []
+}
+{% endschema %}

@@ -6,7 +6,7 @@
     </a>
 
     <nav class="hp-header__actions" aria-label="Genvägar">
-      <a class="hp-iconbtn hp-iconbtn--cart" href="{{ routes.cart_url }}" aria-label="Varukorg ({{ cart.item_count }})">
+      <a class="hp-iconbtn hp-iconbtn--cart" href="{{ routes.cart_url }}" data-cart-toggle aria-label="Varukorg ({{ cart.item_count }})">
         <span aria-hidden="true">{{- 'icon-cart.svg' | inline_asset_content -}}</span>
         {% if cart.item_count > 0 %}
           <span class="hp-iconbtn__count">{{ cart.item_count }}</span>
