@@ -1,3 +1,5 @@
+{%- assign hp_product = all_products[settings.hp_sticky_product] -%}
+{%- assign hp_variant_id = hp_product.selected_or_first_available_variant.id -%}
 <section class="hp-cta-final">
   <div class="hp-cta-final__bg" aria-hidden="true">
     <video class="hp-cta-final__video" autoplay muted loop playsinline preload="metadata"
@@ -21,7 +23,9 @@
       <p class="hp-body hp-cta-final__sub">{{ section.settings.subheading }}</p>
     {%- endif -%}
     {%- if section.settings.cta_label != blank -%}
-      <a class="hp-button hp-button--primary hp-cta-final__btn" href="{{ section.settings.cta_url }}">
+      <a class="hp-button hp-button--primary hp-cta-final__btn"
+         href="{{ hp_product.url | default: section.settings.cta_url }}"
+         {% if hp_variant_id %}data-cart-add data-variant-id="{{ hp_variant_id }}"{% endif %}>
         {{ section.settings.cta_label }}
       </a>
     {%- endif -%}

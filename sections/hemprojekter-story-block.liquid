@@ -1,3 +1,5 @@
+{%- assign hp_product = all_products[settings.hp_sticky_product] -%}
+{%- assign hp_variant_id = hp_product.selected_or_first_available_variant.id -%}
 {%- assign story_img = 'https://cdn.shopify.com/s/files/1/0939/9867/8401/files/story-projector.png?v=1779053709' -%}
 {%- assign story_alt = 'Mini-projektor och smartphone på nattduksbord i varmt skymningsljus' -%}
 {%- if section.settings.image != blank -%}
@@ -25,7 +27,9 @@
         {%- endif -%}
         <div class="hp-body hp-story__body">{{ section.settings.body }}</div>
         {%- if section.settings.cta_label != blank -%}
-          <a class="hp-button hp-button--ghost hp-story__cta" href="{{ section.settings.cta_url }}">
+          <a class="hp-button hp-button--ghost hp-story__cta"
+             href="{{ hp_product.url | default: section.settings.cta_url }}"
+             {% if hp_variant_id %}data-cart-add data-variant-id="{{ hp_variant_id }}"{% endif %}>
             {{ section.settings.cta_label }}
           </a>
         {%- endif -%}

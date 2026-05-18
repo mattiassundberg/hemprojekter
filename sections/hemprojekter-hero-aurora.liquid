@@ -1,3 +1,5 @@
+{%- assign hp_product = all_products[settings.hp_sticky_product] -%}
+{%- assign hp_variant_id = hp_product.selected_or_first_available_variant.id -%}
 <section class="hp-hero" id="shopify-section-{{ section.id }}">
   <div class="hp-hero__media" aria-hidden="true">
     <video class="hp-hero__video"
@@ -34,7 +36,10 @@
           <p class="hp-body hp-hero__sub">{{ section.settings.subheading }}</p>
         {%- endif -%}
         <div class="hp-hero__cta">
-          <a class="hp-button hp-button--primary" href="{{ section.settings.cta_url }}" data-hero-cta>
+          <a class="hp-button hp-button--primary"
+             href="{{ hp_product.url | default: section.settings.cta_url }}"
+             {% if hp_variant_id %}data-cart-add data-variant-id="{{ hp_variant_id }}"{% endif %}
+             data-hero-cta>
             {{ section.settings.cta_label }}
           </a>
           {%- if section.settings.secondary_label != blank -%}
