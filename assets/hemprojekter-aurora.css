@@ -113,20 +113,20 @@ main, footer, .shopify-section { position: relative; z-index: 2; }
 
 .hp-kicker {
   font-family: var(--hp-font-mono);
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--hp-aurora-1);
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 .hp-kicker::before {
   content: "";
-  width: 28px;
+  width: 36px;
   height: 1px;
   background: currentColor;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .hp-display {
@@ -146,13 +146,13 @@ main, footer, .shopify-section { position: relative; z-index: 2; }
 .hp-body {
   font-family: var(--hp-font-body);
   color: var(--hp-text-muted);
-  line-height: 1.65;
-  font-size: 1.02rem;
+  line-height: 1.6;
+  font-size: clamp(1.05rem, 1.15vw, 1.18rem);
 }
 
 .hp-eyebrow-num {
   font-family: var(--hp-font-mono);
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   letter-spacing: 0.2em;
   color: var(--hp-text-dim);
 }
@@ -161,10 +161,10 @@ main, footer, .shopify-section { position: relative; z-index: 2; }
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
-  padding: 1.05em 1.8em;
+  padding: 1.1em 1.9em;
   font-family: var(--hp-font-body);
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 1.02rem;
   letter-spacing: 0.005em;
   border-radius: 999px;
   border: 1px solid transparent;
@@ -254,7 +254,7 @@ main, footer, .shopify-section { position: relative; z-index: 2; }
   align-items: center;
   gap: 14px;
   font-family: var(--hp-font-mono);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--hp-text-dim);
@@ -277,13 +277,13 @@ main, footer, .shopify-section { position: relative; z-index: 2; }
 }
 .hp-section-label__num {
   font-family: var(--hp-font-mono);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   letter-spacing: 0.22em;
   color: var(--hp-text-dim);
 }
 .hp-section-label__title {
   font-family: var(--hp-font-mono);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--hp-aurora-1);

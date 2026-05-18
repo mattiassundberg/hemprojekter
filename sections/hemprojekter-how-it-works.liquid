@@ -44,28 +44,28 @@
 
   .hp-how__step {
     position: relative;
-    padding: 36px 28px 32px;
+    padding: 44px 36px 40px;
     border-top: 1px solid var(--hp-border-strong);
     display: grid;
-    gap: 14px;
+    gap: 18px;
     align-content: start;
   }
   @media (min-width: 880px) {
-    .hp-how__step { border-top: none; border-left: 1px solid var(--hp-border-strong); }
+    .hp-how__step { border-top: none; border-left: 1px solid var(--hp-border-strong); padding-block: 16px; padding-right: 28px; }
     .hp-how__step:first-child { border-left: none; padding-left: 0; }
   }
 
   .hp-how__num {
     font-family: var(--hp-font-display);
     font-style: italic;
-    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-size: clamp(3.5rem, 5.5vw, 5rem);
     line-height: 0.9;
     letter-spacing: -0.04em;
     color: var(--hp-aurora-1);
   }
 
   .hp-how__line {
-    width: 36px;
+    width: 44px;
     height: 1px;
     background: linear-gradient(90deg, var(--hp-aurora-1), transparent);
   }
@@ -73,12 +73,18 @@
   .hp-how__step-title {
     font-family: var(--hp-font-display);
     font-weight: 400;
-    font-size: clamp(1.4rem, 2vw, 1.75rem);
+    font-size: clamp(1.6rem, 2.2vw, 2rem);
     margin: 0;
     color: var(--hp-text);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
   }
-  .hp-how__step-body { margin: 0; max-width: 28ch; }
+  .hp-how__step-body {
+    margin: 0;
+    max-width: 32ch;
+    font-size: clamp(1.05rem, 1.15vw, 1.18rem);
+    line-height: 1.6;
+  }
 {% endstylesheet %}
 
 {% schema %}

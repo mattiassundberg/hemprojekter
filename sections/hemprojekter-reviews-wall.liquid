@@ -115,14 +115,14 @@
   }
   .hp-reviews__rating-sub {
     display: grid;
-    gap: 4px;
+    gap: 6px;
     font-family: var(--hp-font-mono);
-    font-size: 0.74rem;
+    font-size: 0.84rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--hp-text-dim);
   }
-  .hp-reviews__stars { color: var(--hp-aurora-1); letter-spacing: 2px; }
+  .hp-reviews__stars { color: var(--hp-aurora-1); letter-spacing: 3px; font-size: 1.05rem; }
 
   .hp-reviews__featured blockquote {
     margin: 0;
@@ -134,52 +134,53 @@
     text-wrap: balance;
   }
   .hp-reviews__featured figcaption {
-    margin-top: 18px;
+    margin-top: 22px;
     font-family: var(--hp-font-mono);
-    font-size: 0.78rem;
+    font-size: 0.88rem;
     letter-spacing: 0.12em;
     color: var(--hp-text-dim);
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     flex-wrap: wrap;
   }
   .hp-reviews__featured-stars {
     color: var(--hp-aurora-3);
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     font-family: var(--hp-font-body);
+    font-size: 1.05rem;
   }
 
   .hp-reviews__grid {
     list-style: none; margin: 0; padding: 0;
     display: grid;
-    gap: 16px;
+    gap: 20px;
     grid-template-columns: 1fr;
   }
-  @media (min-width: 720px) { .hp-reviews__grid { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1080px) { .hp-reviews__grid { grid-template-columns: repeat(5, 1fr); } }
+  @media (min-width: 640px) { .hp-reviews__grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1080px) { .hp-reviews__grid { grid-template-columns: repeat(3, 1fr); } }
 
   .hp-review {
-    padding: 24px 22px;
+    padding: 32px 30px;
     border-radius: var(--hp-radius);
     border: 1px solid var(--hp-border);
     background: rgba(14,12,24,0.6);
-    display: grid; gap: 10px;
+    display: grid; gap: 16px;
     transition: border-color var(--hp-dur-med) var(--hp-ease), transform var(--hp-dur-med) var(--hp-ease);
   }
   .hp-review:hover { border-color: var(--hp-border-strong); transform: translateY(-2px); }
-  .hp-review__stars { color: var(--hp-aurora-3); letter-spacing: 2px; font-size: 0.85rem; }
+  .hp-review__stars { color: var(--hp-aurora-3); letter-spacing: 3px; font-size: 1.05rem; }
   .hp-review__quote {
     margin: 0;
     font-family: var(--hp-font-display);
-    font-size: 1.05rem;
-    line-height: 1.4;
+    font-size: clamp(1.25rem, 1.45vw, 1.5rem);
+    line-height: 1.35;
     color: var(--hp-text);
   }
   .hp-review__author {
     margin: auto 0 0;
     font-family: var(--hp-font-mono);
-    font-size: 0.7rem;
+    font-size: 0.82rem;
     letter-spacing: 0.12em;
     color: var(--hp-text-dim);
   }
