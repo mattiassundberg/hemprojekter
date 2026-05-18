@@ -58,18 +58,19 @@
   @media (min-width: 1080px) {
     .hp-features__grid {
       grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: 200px;
+      grid-auto-rows: minmax(320px, auto);
+      align-items: stretch;
     }
-    /* Lead 150" — tall hero, left */
-    .hp-feature--1 { grid-column: span 7; grid-row: span 3; }
-    /* 4K — top-right, wide-ish */
-    .hp-feature--2 { grid-column: span 5; grid-row: span 2; }
+    /* Lead 150" — tall hero, spans 2 rows on the left */
+    .hp-feature--1 { grid-column: span 7; grid-row: span 2; }
+    /* 4K — top-right */
+    .hp-feature--2 { grid-column: span 5; }
     /* Brightness — middle-right */
-    .hp-feature--3 { grid-column: span 5; grid-row: span 1; }
+    .hp-feature--3 { grid-column: span 5; }
     /* Three squares bottom row */
-    .hp-feature--4 { grid-column: span 4; grid-row: span 2; }
-    .hp-feature--5 { grid-column: span 4; grid-row: span 2; }
-    .hp-feature--6 { grid-column: span 4; grid-row: span 2; }
+    .hp-feature--4 { grid-column: span 4; }
+    .hp-feature--5 { grid-column: span 4; }
+    .hp-feature--6 { grid-column: span 4; }
   }
 
   .hp-feature {
