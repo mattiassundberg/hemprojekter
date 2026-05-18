@@ -1,18 +1,20 @@
 {%- assign product = all_products[settings.hp_sticky_product] -%}
 
 {%- if product != blank -%}
+  {%- assign sticky_img = 'https://d8j0ntlcm91z4.cloudfront.net/user_3DreXrQjfR3HAlY8BXUgsMLjIwT/hf_20260518_072645_ffd23c8a-39b9-4d65-9fef-677b34f63e4f.png' -%}
+  {%- if product.featured_image -%}
+    {%- assign sticky_img = product.featured_image | image_url: width: 240 -%}
+  {%- endif -%}
   <div class="hp-sticky" data-hp-sticky aria-hidden="true" inert>
     <div class="hp-sticky__inner">
-      {%- if product.featured_image -%}
-        <img class="hp-sticky__img"
-             src="{{ product.featured_image | image_url: width: 96 }}"
-             alt="{{ product.featured_image.alt | escape }}"
-             width="48" height="48" loading="lazy">
-      {%- endif -%}
+      <div class="hp-sticky__media">
+        <img class="hp-sticky__img" src="{{ sticky_img }}" alt="{{ product.title | escape }}" width="160" height="160" loading="lazy">
+        <span class="hp-sticky__badge" aria-hidden="true">★ 4.8</span>
+      </div>
       <div class="hp-sticky__text">
         <p class="hp-sticky__title">{{ product.title }}</p>
         <p class="hp-sticky__price">
-          {{ product.price | money }}
+          <span class="hp-sticky__amount">{{ product.price | money }}</span>
           <span class="hp-sticky__klarna">eller 4× {{ product.price | divided_by: 4 | money }} via Klarna</span>
         </p>
       </div>
@@ -30,13 +32,15 @@
     left: 16px; right: 16px;
     bottom: 16px;
     z-index: 60;
-    background: rgba(11, 16, 38, 0.92);
+    background: linear-gradient(180deg, rgba(20, 17, 31, 0.94), rgba(7, 6, 12, 0.96));
     color: var(--hp-text);
-    border: 1px solid var(--hp-border-strong);
-    border-radius: 18px;
-    backdrop-filter: saturate(140%) blur(14px);
-    -webkit-backdrop-filter: saturate(140%) blur(14px);
-    box-shadow: 0 24px 60px -16px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(244, 183, 102, 0.28);
+    border-radius: 22px;
+    backdrop-filter: saturate(140%) blur(18px);
+    -webkit-backdrop-filter: saturate(140%) blur(18px);
+    box-shadow:
+      0 30px 80px -20px rgba(0, 0, 0, 0.75),
+      0 10px 40px -10px rgba(244, 183, 102, 0.15);
     transform: translateY(140%);
     opacity: 0;
     transition: transform 480ms var(--hp-ease), opacity 320ms var(--hp-ease);
@@ -52,20 +56,89 @@
   }
   .hp-sticky__inner {
     display: grid;
-    grid-template-columns: 48px 1fr auto;
+    grid-template-columns: 72px 1fr auto;
     align-items: center;
-    gap: 14px;
-    padding: 12px 14px;
-    max-width: 720px;
+    gap: 20px;
+    padding: 14px 18px 14px 14px;
+    max-width: 880px;
     margin: 0 auto;
   }
-  .hp-sticky__img { border-radius: 10px; object-fit: cover; }
-  .hp-sticky__title { margin: 0; font-weight: 600; font-size: 0.92rem; line-height: 1.2; }
-  .hp-sticky__price { margin: 2px 0 0; font-family: var(--hp-font-mono); font-size: 0.78rem; color: var(--hp-text-muted); }
-  .hp-sticky__klarna { display: block; opacity: 0.78; }
-  .hp-sticky__btn { padding: 0.75em 1.2em; font-size: 0.88rem; }
-  @media (max-width: 520px) {
-    .hp-sticky { left: 0; right: 0; bottom: 0; border-radius: 18px 18px 0 0; }
+  .hp-sticky__media {
+    position: relative;
+    width: 72px; height: 72px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(244, 183, 102, 0.3);
+    background: var(--hp-surface);
+  }
+  .hp-sticky__img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hp-sticky__badge {
+    position: absolute;
+    bottom: 4px; right: 4px;
+    font-family: var(--hp-font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: rgba(7, 6, 12, 0.85);
+    color: var(--hp-aurora-1);
+    border: 1px solid rgba(244, 183, 102, 0.5);
+  }
+
+  .hp-sticky__text { min-width: 0; }
+  .hp-sticky__title {
+    margin: 0;
+    font-family: var(--hp-font-display);
+    font-weight: 400;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: var(--hp-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hp-sticky__price {
+    margin: 4px 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .hp-sticky__amount {
+    font-family: var(--hp-font-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--hp-aurora-1);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .hp-sticky__klarna {
+    font-family: var(--hp-font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--hp-text-muted);
+  }
+
+  .hp-sticky__btn {
+    padding: 1em 1.8em;
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .hp-sticky { left: 0; right: 0; bottom: 0; border-radius: 22px 22px 0 0; border-bottom: 0; padding-bottom: env(safe-area-inset-bottom); }
+    .hp-sticky__inner { grid-template-columns: 56px 1fr auto; gap: 14px; padding: 12px 14px; }
+    .hp-sticky__media { width: 56px; height: 56px; border-radius: 12px; }
+    .hp-sticky__title { font-size: 1.05rem; }
+    .hp-sticky__amount { font-size: 1.2rem; }
     .hp-sticky__klarna { display: none; }
+    .hp-sticky__badge { display: none; }
+    .hp-sticky__btn { padding: 0.85em 1.3em; font-size: 0.95rem; }
   }
 {% endstylesheet %}
