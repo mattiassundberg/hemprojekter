@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 497.96 114.53">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-family: Forum, Forum;
+        font-size: 58px;
+      }
+
+      .Graphic_Style {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="61.95" y1="13.57" x2="11.56" y2="100.85" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fdd397"/>
+      <stop offset="1" stop-color="#aa773e"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="122.76" y1="14.13" x2="72.96" y2="100.4" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <path class="Graphic_Style" d="M46.22,20.24v36.27h-18.94V20.24H0v73.94h27.28v-35.94h18.94v35.94h27.28V20.24h-27.28ZM59.97,64.87c-4.23,0-7.66-3.43-7.66-7.66s3.43-7.66,7.66-7.66,7.66,3.43,7.66,7.66-3.43,7.66-7.66,7.66Z"/>
+      <rect class="cls-1" x="97.21" width="1.3" height="114.53" rx=".31" ry=".31"/>
+      <text class="cls-2" transform="translate(118.56 74.16)"><tspan x="0" y="0">HEMPROJEKTER</tspan></text>
+    </g>
+  </g>
+</svg>

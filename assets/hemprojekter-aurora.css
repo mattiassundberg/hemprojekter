@@ -61,7 +61,7 @@
   --hp-container: min(1320px, calc(100vw - clamp(36px, 6vw, 80px)));
   --hp-container-wide: min(1480px, calc(100vw - clamp(32px, 5vw, 64px)));
   --hp-section-pad-y: clamp(72px, 11vw, 180px);
-  --hp-header-h: 88px;
+  --hp-header-h: 96px;
 }
 
 body.hp-aurora {

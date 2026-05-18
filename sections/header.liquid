@@ -1,7 +1,7 @@
 <header class="hp-header" role="banner">
   <div class="hp-header__inner hp-container">
     <a class="hp-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-      <img class="hp-logo" src="{{ 'hemprojekter-logo.png' | asset_url }}" alt="Hemprojekter" width="1200" height="670" loading="eager" fetchpriority="high">
+      <img class="hp-logo" src="{{ 'hemprojekter-logo.svg' | asset_url }}" alt="Hemprojekter" width="498" height="115" loading="eager" fetchpriority="high">
       <span class="hp-wordmark visually-hidden">Hemprojekter</span>
     </a>
 
@@ -49,7 +49,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-block: 22px;
+    padding-block: 16px;
   }
 
   .hp-header__brand {
@@ -68,9 +68,8 @@
   .hp-logo {
     display: block;
     width: auto;
-    height: clamp(36px, 4vw, 52px);
+    height: clamp(48px, 5vw, 64px);
     max-width: 100%;
-    mix-blend-mode: lighten;
   }
 
   .visually-hidden {
