@@ -6,9 +6,6 @@
     </a>
 
     <nav class="hp-header__actions" aria-label="Genvägar">
-      <a class="hp-iconbtn" href="{{ routes.search_url }}" aria-label="{{ 'general.search.search' | t }}">
-        <span aria-hidden="true">{{- 'icon-search.svg' | inline_asset_content -}}</span>
-      </a>
       <a class="hp-iconbtn hp-iconbtn--cart" href="{{ routes.cart_url }}" aria-label="Varukorg ({{ cart.item_count }})">
         <span aria-hidden="true">{{- 'icon-cart.svg' | inline_asset_content -}}</span>
         {% if cart.item_count > 0 %}
@@ -92,18 +89,28 @@
     position: relative;
     display: inline-grid;
     place-items: center;
-    width: 42px;
-    height: 42px;
+    width: 56px;
+    height: 56px;
     border-radius: 999px;
     color: var(--hp-text);
     text-decoration: none;
-    border: 1px solid var(--hp-border);
-    background: rgba(17, 23, 58, 0.55);
+    border: 1px solid var(--hp-border-strong);
+    background: rgba(7, 6, 12, 0.55);
     transition: border-color var(--hp-dur-fast) var(--hp-ease),
-                color var(--hp-dur-fast) var(--hp-ease);
+                color var(--hp-dur-fast) var(--hp-ease),
+                background-color var(--hp-dur-fast) var(--hp-ease);
   }
 
-  .hp-iconbtn svg { width: 18px; height: 18px; }
+  .hp-iconbtn svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+  .hp-iconbtn > span {
+    display: grid;
+    place-items: center;
+    line-height: 0;
+  }
 
   .hp-iconbtn:hover {
     border-color: var(--hp-aurora-1);
