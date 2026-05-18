@@ -33,8 +33,8 @@
         </video>
       {%- else -%}
         <hp-before-after class="hp-demo__ba" tabindex="0" aria-label="Före och efter — använd piltangenter eller dra för att jämföra">
-          <img class="hp-demo__img hp-demo__img--after" src="{{ after_src }}" alt="Hemmabio på vägg — projektor aktiv" loading="lazy" width="2400" height="1350">
-          <img class="hp-demo__img hp-demo__img--before" src="{{ before_src }}" alt="Tom vägg — projektor av" loading="lazy" width="2400" height="1350">
+          <img class="hp-demo__img hp-demo__img--after" src="{{ after_src }}" alt="Hemmabio på vägg — projektor aktiv" loading="lazy" width="2400" height="1350" draggable="false">
+          <img class="hp-demo__img hp-demo__img--before" src="{{ before_src }}" alt="Tom vägg — projektor av" loading="lazy" width="2400" height="1350" draggable="false">
           <span class="hp-demo__handle" aria-hidden="true"><span class="hp-demo__handle-dot"></span></span>
           <span class="hp-demo__label hp-demo__label--before" aria-hidden="true">Före</span>
           <span class="hp-demo__label hp-demo__label--after" aria-hidden="true">Efter</span>
@@ -99,7 +99,14 @@
     cursor: ew-resize;
     user-select: none;
   }
-  .hp-demo__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hp-demo__img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+  }
   .hp-demo__img--before { clip-path: inset(0 50% 0 0); }
   .hp-demo__handle {
     position: absolute;
@@ -145,6 +152,7 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(251, 248, 243, 0.3);
     color: var(--hp-text);
+    pointer-events: none;
   }
   .hp-demo__label--before { left: 22px; }
   .hp-demo__label--after { right: 22px; color: var(--hp-aurora-1); border-color: rgba(244,183,102,0.3); }
@@ -173,7 +181,11 @@
           this._handle.style.left = pct + '%';
         };
 
-        this._start = (e) => { this._dragging = true; this._setPos((e.touches ? e.touches[0] : e).clientX); };
+        this._start = (e) => {
+          if (e.cancelable) e.preventDefault();
+          this._dragging = true;
+          this._setPos((e.touches ? e.touches[0] : e).clientX);
+        };
         this._move  = (e) => { if (this._dragging) this._setPos((e.touches ? e.touches[0] : e).clientX); };
         this._end   = () => { this._dragging = false; };
         this._key   = (e) => {
