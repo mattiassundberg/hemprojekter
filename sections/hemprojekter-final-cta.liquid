@@ -46,7 +46,7 @@
   .hp-cta-final__scrim {
     position: absolute; inset: 0;
     background:
-      linear-gradient(180deg, rgba(7,6,12,0.55) 0%, rgba(7,6,12,0.35) 30%, rgba(7,6,12,0.7) 70%, rgba(7,6,12,0.98) 100%),
+      linear-gradient(180deg, rgba(7,6,12,0.7) 0%, rgba(7,6,12,0.5) 25%, rgba(7,6,12,0.82) 65%, rgba(7,6,12,0.98) 100%),
       radial-gradient(80% 60% at 50% 100%, rgba(244,183,102,0.18), transparent 70%);
   }
 
@@ -64,22 +64,24 @@
     text-wrap: balance;
     letter-spacing: -0.045em;
     line-height: 0.9;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.55);
   }
   .hp-cta-final__sub {
     margin: 0;
     color: var(--hp-text);
-    opacity: 0.9;
-    font-size: clamp(1.15rem, 1.5vw, 1.32rem);
+    font-size: clamp(1.18rem, 1.55vw, 1.38rem);
     line-height: 1.5;
     max-width: 40ch;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.65);
   }
   .hp-cta-final__btn { margin-top: 16px; justify-self: start; }
   .hp-cta-final__fine {
     font-family: var(--hp-font-mono);
-    font-size: 0.82rem;
+    font-size: 0.92rem;
     letter-spacing: 0.16em;
-    color: var(--hp-text-muted);
+    color: rgba(251, 248, 243, 0.9);
     margin: 8px 0 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.55);
   }
 {% endstylesheet %}
 
