@@ -56,19 +56,19 @@
   }
   .hp-sticky__inner {
     display: grid;
-    grid-template-columns: 72px 1fr auto;
+    grid-template-columns: 96px 1fr auto;
     align-items: center;
-    gap: 20px;
-    padding: 14px 18px 14px 14px;
-    max-width: 880px;
+    gap: 26px;
+    padding: 18px 22px 18px 18px;
+    max-width: 1180px;
     margin: 0 auto;
   }
   .hp-sticky__media {
     position: relative;
-    width: 72px; height: 72px;
-    border-radius: 14px;
+    width: 96px; height: 96px;
+    border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(244, 183, 102, 0.3);
+    border: 1px solid rgba(244, 183, 102, 0.32);
     background: var(--hp-surface);
   }
   .hp-sticky__img {
@@ -78,16 +78,16 @@
   }
   .hp-sticky__badge {
     position: absolute;
-    bottom: 4px; right: 4px;
+    bottom: 6px; right: 6px;
     font-family: var(--hp-font-mono);
-    font-size: 0.62rem;
+    font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.06em;
-    padding: 2px 6px;
+    padding: 3px 8px;
     border-radius: 999px;
-    background: rgba(7, 6, 12, 0.85);
+    background: rgba(7, 6, 12, 0.88);
     color: var(--hp-aurora-1);
-    border: 1px solid rgba(244, 183, 102, 0.5);
+    border: 1px solid rgba(244, 183, 102, 0.55);
   }
 
   .hp-sticky__text { min-width: 0; }
@@ -95,50 +95,51 @@
     margin: 0;
     font-family: var(--hp-font-display);
     font-weight: 400;
-    font-size: 1.25rem;
-    letter-spacing: -0.01em;
-    line-height: 1.15;
+    font-size: 1.65rem;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
     color: var(--hp-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .hp-sticky__price {
-    margin: 4px 0 0;
+    margin: 6px 0 0;
     display: flex;
     align-items: baseline;
-    gap: 12px;
+    gap: 14px;
     flex-wrap: wrap;
   }
   .hp-sticky__amount {
     font-family: var(--hp-font-display);
     font-style: italic;
-    font-size: 1.4rem;
+    font-size: 1.9rem;
     color: var(--hp-aurora-1);
     letter-spacing: -0.01em;
     line-height: 1;
   }
   .hp-sticky__klarna {
     font-family: var(--hp-font-mono);
-    font-size: 0.82rem;
+    font-size: 1rem;
     letter-spacing: 0.04em;
     color: var(--hp-text-muted);
   }
 
   .hp-sticky__btn {
-    padding: 1em 1.8em;
-    font-size: 1.05rem;
+    padding: 1.15em 2em;
+    font-size: 1.2rem;
+    font-weight: 600;
     white-space: nowrap;
   }
 
   @media (max-width: 720px) {
     .hp-sticky { left: 0; right: 0; bottom: 0; border-radius: 22px 22px 0 0; border-bottom: 0; padding-bottom: env(safe-area-inset-bottom); }
-    .hp-sticky__inner { grid-template-columns: 56px 1fr auto; gap: 14px; padding: 12px 14px; }
-    .hp-sticky__media { width: 56px; height: 56px; border-radius: 12px; }
-    .hp-sticky__title { font-size: 1.05rem; }
-    .hp-sticky__amount { font-size: 1.2rem; }
+    .hp-sticky__inner { grid-template-columns: 64px 1fr auto; gap: 14px; padding: 14px 16px; }
+    .hp-sticky__media { width: 64px; height: 64px; border-radius: 12px; }
+    .hp-sticky__title { font-size: 1.15rem; }
+    .hp-sticky__amount { font-size: 1.4rem; }
     .hp-sticky__klarna { display: none; }
     .hp-sticky__badge { display: none; }
-    .hp-sticky__btn { padding: 0.85em 1.3em; font-size: 0.95rem; }
+    .hp-sticky__btn { padding: 0.95em 1.4em; font-size: 1.05rem; }
   }
 {% endstylesheet %}
