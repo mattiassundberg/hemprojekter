@@ -1,7 +1,7 @@
 <header class="hp-header" role="banner">
   <div class="hp-header__inner hp-container">
     <a class="hp-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-      <img class="hp-logo" src="{{ 'hemprojekter-logo.svg' | asset_url }}" alt="Hemprojekter" width="498" height="115" loading="eager" fetchpriority="high">
+      <span class="hp-logo" aria-hidden="true">{{- 'hemprojekter-logo.svg' | inline_asset_content -}}</span>
       <span class="hp-wordmark visually-hidden">Hemprojekter</span>
     </a>
 
@@ -53,6 +53,8 @@
     display: inline-flex;
     text-decoration: none;
     color: var(--hp-text);
+    min-width: 0;
+    flex-shrink: 1;
   }
 
   .hp-wordmark {
@@ -64,9 +66,19 @@
 
   .hp-logo {
     display: block;
-    width: auto;
-    height: clamp(48px, 5vw, 64px);
+    line-height: 0;
     max-width: 100%;
+  }
+  .hp-logo svg {
+    display: block;
+    height: clamp(44px, 5vw, 64px);
+    width: auto;
+    max-width: 100%;
+    overflow: visible;
+  }
+  .hp-logo svg text { font-family: "Forum", "Cormorant Garamond", "Times New Roman", serif; }
+  @media (max-width: 480px) {
+    .hp-logo svg { height: 38px; }
   }
 
   .visually-hidden {

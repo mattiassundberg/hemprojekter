@@ -1,7 +1,8 @@
 <footer class="hp-footer" role="contentinfo">
   <div class="hp-container hp-footer__inner">
     <div class="hp-footer__brand">
-      <img class="hp-logo hp-logo--footer" src="{{ 'hemprojekter-logo.svg' | asset_url }}" alt="Hemprojekter" width="498" height="115" loading="lazy">
+      <span class="hp-logo hp-logo--footer" aria-hidden="true">{{- 'hemprojekter-logo.svg' | inline_asset_content -}}</span>
+      <span class="visually-hidden">Hemprojekter</span>
       <p class="hp-body hp-footer__tag">Lite mer magi i vardagsrummet.</p>
     </div>
 
@@ -76,7 +77,13 @@
     .hp-footer__brand, .hp-footer__signup { grid-column: 1 / -1; }
   }
   .hp-footer__brand { display: grid; gap: 14px; }
-  .hp-logo--footer { display: block; height: clamp(60px, 6vw, 84px); width: auto; }
+  .hp-logo--footer { display: block; line-height: 0; max-width: 100%; }
+  .hp-logo--footer svg { display: block; height: clamp(56px, 6vw, 84px); width: auto; max-width: 100%; overflow: visible; }
+  .hp-logo--footer svg text { font-family: "Forum", "Cormorant Garamond", "Times New Roman", serif; }
+  @media (max-width: 480px) {
+    .hp-logo--footer svg { height: 48px; }
+  }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   .hp-footer__tag { margin: 0; max-width: 24ch; }
   .hp-footer__h {
     font-family: var(--hp-font-mono);
